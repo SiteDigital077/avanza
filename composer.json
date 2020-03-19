@@ -1,23 +1,14 @@
 {
-    "name": "digitalsite/avanza",
-    "description": "Modulos control de eventos",
+    "name": "digitalsitesaas/calendario",
+    "description": "Módulo calendario",
+    "type": "project",
     "license": "MIT",
     "authors": [
         {
-            "name": "sitedigital",
-            "email": "info@sitedigital.com.co"
+            "name": "SiteDigital",
+            "email": "admin@sitedigital.com.co"
         }
     ],
-      "autoload": {
-
-        "psr-4": {
-            "Digitalsite\\Avanza\\": "src/"
-        }
-
-    },
-
-    "minimum-stability": "stable",
-    "require": {
-        "illuminate/support": "~5"
-    }
+    "minimum-stability": "dev",
+    "require": {}
 }

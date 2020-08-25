@@ -16,15 +16,25 @@ use DB;
 use Auth;
 use Hash;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Input;
+use Input;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Response;
+
+
+
 class AvanzaController extends Controller{
 
+ protected $tenantName = null;
 
  public function __construct()
     {
         $this->middleware('auth');
+        $hostname = app(\Hyn\Tenancy\Environment::class)->hostname();
+        if ($hostname){
+            $fqdn = $hostname->fqdn;
+            $this->tenantName = explode(".", $fqdn)[0];
+        }
     }
 
 
@@ -35,18 +45,27 @@ class AvanzaController extends Controller{
 	}
 
     public function avanzacrear(){
+    	if(!$this->tenantName){
     	$usuario = Auth::user()->id;
    		$conteo = DB::table('ficha')->where('usuario_id', '=', $usuario)->count();
     	$categories = Page::where('categoria', '=', 1)->get();
     	$paginas = Page::all();
+    	}else{
+    	$usuario = Auth::user()->id;
+   		$conteo = DB::table('ficha')->where('usuario_id', '=', $usuario)->count();
+    	$categories = \DigitalsiteSaaS\Pagina\Tenant\Page::where('categoria', '=', 1)->get();
+    	$paginas = \DigitalsiteSaaS\Pagina\Tenant\Page::all();	
+    	}
 		return view('avanza::fichaje/crear-ficha')->with('paginas', $paginas)->with('categories', $categories)->with('conteo', $conteo);
 }
 
 
 public function avanzaficha(){
 
+	if(!$this->tenantName){
 	$number = Auth::user()->rol_id;
 	
+
  	  if($number ==1) 
     {	
     	$numbersa = Auth::user()->id;
@@ -61,8 +80,40 @@ public function avanzaficha(){
     	$contenido = \DigitalsiteSaaS\Usuario\Usuario::find($numbersa)->Fichas;
     	$contenida = \DigitalsiteSaaS\Usuario\Usuario::find($numbersa)->Fichas;
        return view('avanza::fichaje/mis-fichas')->with('contenido', $contenido);
-    }			
+    }	
+    }else{
+       $number = Auth::user()->rol_id;
+	
+ 	  if($number ==1) 
+    {	
+    	$numbersa = Auth::user()->id;
+        $contenido = \DigitalsiteSaaS\Avanza\Tenant\Fichaje::all();
+
+         $contenida = \DigitalsiteSaaS\Avanza\Tenant\Fichaje::all();
+        $mensaje = DB::table('mesage')->where('interes','=',$numbersa)->get();
+        return view('avanza::fichaje/ficha')->with('contenido', $contenido);
     }
+    elseif($number ==3)
+    {
+    	$numbersa = Auth::user()->id;
+    	$contenido = \DigitalsiteSaaS\Usuario\Tenant\Usuario::find($numbersa)->Fichas;
+
+    	$contenida = \DigitalsiteSaaS\Usuario\Tenant\Usuario::find($numbersa)->Fichas;
+       return view('avanza::fichaje/mis-fichas')->with('contenido', $contenido);
+    }	
+
+    }		
+    
+}
+
+public function memo(){
+	$cat_id = Input::get('cat_id');
+	$subcategories = \DigitalsiteSaaS\Pagina\Tenant\Page::where('page_id', '=', $cat_id)->get();
+	return Response::json($subcategories);
+}
+
+
+
 
 public function avanza(){
 	$number = Auth::user()->id;
@@ -79,8 +130,11 @@ public function avanza(){
 		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
 		$url_imagen = $file->getClientOriginalName();
 		$subir=$file->move($destinoPath,$file->getClientOriginalName());
-	
+	    if(!$this->tenantName){
 		$contenido = new Fichaje;
+     	}else{
+     	$contenido = new \DigitalsiteSaaS\Avanza\Tenant\Fichaje;	
+     	}
 		$contenido->title = Input::get('titulo');
 		$contenido->slug = Str::slug($contenido->title);
 		$contenido->description = Input::get('descripcion');
@@ -125,7 +179,7 @@ public function avanza(){
 			
 		
 		public function editarficha($id){
-
+		if(!$this->tenantName){
 		$contenidonu = Muxu::join('pages','pages.id','=','ficha.page_id')
 	  			  ->orderBy('position','ASC')
 	              ->where('ficha.id', '=' ,$id)->get();
@@ -133,14 +187,29 @@ public function avanza(){
 	  			  ->orderBy('position','ASC')
 	              ->where('ficha.id', '=' ,$id)->get();
 
-		$categories = Page::where('categoria', '=', 1)->get();
+		$categories = Page::
+		where('categoria', '=', 1)->get();
 		$paginas = Page::all();		
 		$contenido = Fichaje::find($id);
+	    }else{
+	    $contenidonu = \DigitalsiteSaaS\Pagina\Tenant\Muxu::join('pages','pages.id','=','ficha.page_id')
+	  			  ->orderBy('position','ASC')
+	              ->where('ficha.id', '=' ,$id)->get();
+	    $contenida = \DigitalsiteSaaS\Pagina\Tenant\Muxu::join('pages','pages.id','=','ficha.responsive')
+	  			  ->orderBy('position','ASC')
+	              ->where('ficha.id', '=' ,$id)->get();
+
+		$categories = \DigitalsiteSaaS\Pagina\Tenant\Page::
+		where('categoria', '=', 1)->get();
+		$paginas = \DigitalsiteSaaS\Pagina\Tenant\Page::all();		
+		$contenido = \DigitalsiteSaaS\Pagina\Tenant\Fichaje::find($id);
+
+	    }
 	    return view('avanza::fichaje/editar')->with('contenido', $contenido)->with('paginas', $paginas)->with('categories', $categories)->with('contenidonu', $contenidonu)->with('contenida', $contenida);
 	    }
 	
 		public function editarfichaimg($id){
-
+		if(!$this->tenantName){
 		$contenidonu = Muxu::join('pages','pages.id','=','ficha.page_id')
 	  			  ->orderBy('position','ASC')
 	              ->where('ficha.id', '=' ,$id)->get();
@@ -151,13 +220,29 @@ public function avanza(){
 		$categories = Page::where('categoria', '=', 1)->get();
 		$paginas = Page::all();		
 		$contenido = Fichaje::find($id);
+		}else{
+		$contenidonu = \DigitalsiteSaaS\Pagina\Tenant\Muxu::join('pages','pages.id','=','ficha.page_id')
+	  			  ->orderBy('position','ASC')
+	              ->where('ficha.id', '=' ,$id)->get();
+	    $contenida = \DigitalsiteSaaS\Pagina\Tenant\Muxu::join('pages','pages.id','=','ficha.responsive')
+	  			  ->orderBy('position','ASC')
+	              ->where('ficha.id', '=' ,$id)->get();
+
+		$categories = \DigitalsiteSaaS\Pagina\Tenant\Page::where('categoria', '=', 1)->get();
+		$paginas = \DigitalsiteSaaS\Pagina\Tenant\Page::all();		
+		$contenido = \DigitalsiteSaaS\Avanza\Tenant\Fichaje::find($id);
+		}
 	    return view('avanza::fichaje/editar-img')->with('contenido', $contenido)->with('paginas', $paginas)->with('categories', $categories)->with('contenidonu', $contenidonu)->with('contenida', $contenida);
 	    }
 	
 public function actualizarficha($id, FichaUpdateRequest $request){
 			
 		$input = Input::all();
+		if(!$this->tenantName){
 		$contenido = Fichaje::find($id);
+		}else{
+		$contenido = \DigitalsiteSaaS\Avanza\Tenant\Fichaje::find($id);	
+		}
 		$contenido->title = Input::get('titulo');
 		$contenido->slug = Str::slug($contenido->title);
 		$contenido->description = Input::get('descripcion');
@@ -216,7 +301,12 @@ public function actualizarfichaimg($id, FichaUpdateimgRequest $request){
 		$subir=$file->move($destinoPath,$file->getClientOriginalName());
 
 		$input = Input::all();
+
+		if(!$this->tenantName){
 		$contenido = Fichaje::find($id);
+		}else{
+		$contenido = \DigitalsiteSaaS\Avanza\Tenant\Fichaje::find($id);	
+		}
 		$contenido->title = Input::get('titulo');
 		$contenido->slug = Str::slug($contenido->title);
 		$contenido->description = Input::get('descripcion');
@@ -252,8 +342,11 @@ public function actualizarfichaimg($id, FichaUpdateimgRequest $request){
 
 
 	     public function eliminarficha($id){
-
+	    if(!$this->tenantName){
 		$contenido = Fichaje::find($id);
+		}else{
+		$contenido = \DigitalsiteSaaS\Avanza\Tenant\Fichaje::find($id);	
+		}
 		$contenido->delete();
 		return Redirect('gestion/avanza/fichas')->with('status', 'ok_delete');
 	    }
@@ -268,12 +361,20 @@ public function actualizarfichaimg($id, FichaUpdateimgRequest $request){
 
 	    public function usuarios() {
 
-    $users = Usuario::all();
-	return view('avanza::usuarios')->with('users',$users);}
+  if(!$this->tenantName){
+   $users = Usuario::all();
+   }else{
+   $users = \DigitalsiteSaaS\Usuario\Tenant\Usuario::all();
+   }
+   return view('avanza::usuarios')->with('users',$users);
+}
 
 	    public function fichas() {
-
+if(!$this->tenantName){
     $fichas = Fichaje::all();
+}else{
+	$fichas = \DigitalsiteSaaS\Avanza\Tenant\Fichaje::all();
+}
 	return view('avanza::fichas')->with('fichas',$fichas);}
 
 	 public function misfichas() {

@@ -3,8 +3,8 @@
 
 Route::group(['middleware' => ['auths','administrador']], function (){
 
-	Route::resource('/gestion/avanza/fichasweb', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@fichas');
-	Route::resource('/gestion/avanza/usuarios', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@usuarios');
+	Route::get('/gestion/avanza/fichasweb', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@fichas');
+	Route::get('/gestion/avanza/usuarios', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@usuarios');
 
 }); 
 
@@ -27,7 +27,10 @@ Route::post('gestion/avanza/actualizarficha/{id}', 'DigitalsiteSaaS\Avanza\Http\
 Route::post('gestion/avanza/actualizarfichaimg/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@actualizarfichaimg');
 Route::get('gestion/avanza/eliminar-ficha/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@eliminarficha');
 Route::resource('gestion/avanza/leer', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@leer');
-Route::get('memo/ajax-subcat',function(){
+
+Route::get('memo/ajax-subcat', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@memo');
+
+Route::get('memo/ajax-subcatxx',function(){
 
 		$cat_id = Input::get('cat_id');
 		$subcategories = DigitalsiteSaaS\Pagina\Page::where('page_id', '=', $cat_id)->get();

@@ -17,6 +17,8 @@ Route::get('gestion/avanza/fichas', 'DigitalsiteSaaS\Avanza\Http\AvanzaControlle
 Route::resource('gestion/avanza/mensaje-ficha', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@mensajeficha');
 Route::get('gestion/avanza/crear', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanzacrear');
 Route::post('gestion/avanza/crearficha', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@crearficha');
+Route::get('gestion/avanza/crear-empresa', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanzacrearempresa');
+Route::post('gestion/avanza/crearempresa', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@crearempresa');
 
 Route::get('gestion/avanza', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanza');
 

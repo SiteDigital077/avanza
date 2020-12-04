@@ -4,6 +4,7 @@ namespace DigitalsiteSaaS\Avanza\Http;
 
 use DigitalsiteSaaS\Avanza\Fichaje;
 use DigitalsiteSaaS\Avanza\Empresa;
+use DigitalsiteSaaS\Avanza\Avanzaempresa;
 use DigitalsiteSaaS\Pagina\Message;
 use DigitalsiteSaaS\Pagina\Page;
 use DigitalsiteSaaS\Pagina\Muxu;
@@ -59,6 +60,11 @@ class AvanzaController extends Controller{
 		return view('avanza::fichaje/crear-ficha')->with('paginas', $paginas)->with('categories', $categories)->with('conteo', $conteo);
 }
 
+  public function avanzacrearempresa(){
+    	
+		return view('avanza::fichaje/crear-empresa');
+}
+
 
 public function avanzaficha(){
 
@@ -72,6 +78,7 @@ public function avanzaficha(){
         $contenido = Fichaje::all();
          $contenida = Fichaje::all();
         $mensaje = DB::table('mesage')->where('interes','=',$numbersa)->get();
+
         return view('avanza::fichaje/ficha')->with('contenido', $contenido);
     }
     elseif($number ==3)
@@ -108,7 +115,11 @@ public function avanzaficha(){
 
 public function memo(){
 	$cat_id = Input::get('cat_id');
-	$subcategories = \DigitalsiteSaaS\Pagina\Tenant\Page::where('page_id', '=', $cat_id)->get();
+	if(!$this->tenantName){
+	$subcategories = Page::where('page_id', '=', $cat_id)->get();
+    }else{
+    $subcategories = \DigitalsiteSaaS\Pagina\Tenant\Page::where('page_id', '=', $cat_id)->get();
+    }
 	return Response::json($subcategories);
 }
 
@@ -116,15 +127,15 @@ public function memo(){
 
 
 public function avanza(){
-	$number = Auth::user()->id;
-		$mensajema = DB::table('mesage')->where('interes', '=', $number)->where('cargo', '=', NULL)->count();
-	
-	return view('avanza::fichaje/ficha')->with('mensajema', $mensajema);
+	    $number = Auth::user()->id;
+	    $conteo =  Avanzaempresa::where('usuario_id', '=', Auth::user()->id)->count();
+		$empresa = Avanzaempresa::where('usuario_id', '=', Auth::user()->id)->get();
+	   return view('avanza::fichaje/ficha')->with('conteo', $conteo)->with('empresa', $empresa);
 }
 
 
 
-	public function crearficha(FichaCreateRequest $request){
+	public function crearficha(){
 		$number = Auth::user()->id;
 		$file = Input::file('file');
 		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
@@ -145,7 +156,7 @@ public function avanza(){
 		$contenido->content = Input::get('contenido');
 		$contenido->position = Input::get('descripseo');
 		$contenido->level = Input::get('nivel');
-		$contenido->image = $url_imagen;
+		$contenido->image = '/fichaimg/clientes/'.$number.'/'.$url_imagen;
 		$contenido->imageal = Input::get('imageal');
 		$contenido->website = Input::get('enlace');
 		$contenido->type = Input::get('tipo');
@@ -158,6 +169,37 @@ public function avanza(){
 		return Redirect('gestion/avanza/fichas')->with('status', 'ok_create');
      	}
 
+     	public function crearempresa(){
+		$number = Auth::user()->id;
+		$file = Input::file('file');
+		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
+		$url_imagen = $file->getClientOriginalName();
+		$subir=$file->move($destinoPath,$file->getClientOriginalName());
+	    if(!$this->tenantName){
+		$contenido = new Avanzaempresa;
+     	}else{
+     	$contenido = new \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa;	
+     	}
+		$contenido->empresa = Input::get('empresa');
+		$contenido->slug = Str::slug($contenido->empresa);
+		$contenido->titulo = Input::get('titulo');
+		$contenido->descripcion = Input::get('descripcion');
+		$contenido->contenido = Input::get('contenido');
+		$contenido->imagen = '/fichaimg/clientes/'.$number.'/'.$url_imagen;
+		$contenido->url = Input::get('url');
+		$contenido->visualizacion = Input::get('visualizacion');
+		$contenido->tipo = Input::get('tipo');
+		$contenido->direccion = Input::get('direccion');
+		$contenido->telefono = Input::get('telefono');
+		$contenido->email = Input::get('email');
+		$contenido->ubicacion = Input::get('ubicacion');
+		$contenido->usuario_id = Input::get('usuario');
+		$contenido->save();
+
+		return Redirect('gestion/avanza')->with('status', 'ok_create');
+     	}
+
+     	
      	public function mensaje(){
 	
 	$number = Auth::user()->rol_id;
@@ -186,7 +228,6 @@ public function avanza(){
 	    $contenida = Muxu::join('pages','pages.id','=','ficha.responsive')
 	  			  ->orderBy('position','ASC')
 	              ->where('ficha.id', '=' ,$id)->get();
-
 		$categories = Page::
 		where('categoria', '=', 1)->get();
 		$paginas = Page::all();		
@@ -235,8 +276,12 @@ public function avanza(){
 	    return view('avanza::fichaje/editar-img')->with('contenido', $contenido)->with('paginas', $paginas)->with('categories', $categories)->with('contenidonu', $contenidonu)->with('contenida', $contenida);
 	    }
 	
-public function actualizarficha($id, FichaUpdateRequest $request){
-			
+public function actualizarficha($id){
+		$number = Auth::user()->id;
+		$file = Input::file('file');
+		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
+		$url_imagen = $file->getClientOriginalName();
+		$subir=$file->move($destinoPath,$file->getClientOriginalName());
 		$input = Input::all();
 		if(!$this->tenantName){
 		$contenido = Fichaje::find($id);
@@ -253,7 +298,7 @@ public function actualizarficha($id, FichaUpdateRequest $request){
 		$contenido->content = Input::get('contenido');
 		$contenido->position = Input::get('descripseo');
 		$contenido->level = Input::get('nivel');
-		$contenido->image = Input::get('file');
+		$contenido->image = '/fichaimg/clientes/'.$number.'/'.$url_imagen;
 		$contenido->imageal = Input::get('animacion');
 		$contenido->website = Input::get('enlace');
 		$contenido->type = Input::get('tipo');
@@ -372,15 +417,19 @@ public function actualizarfichaimg($id, FichaUpdateimgRequest $request){
 	    public function fichas() {
 if(!$this->tenantName){
     $fichas = Fichaje::all();
+
 }else{
 	$fichas = \DigitalsiteSaaS\Avanza\Tenant\Fichaje::all();
+
 }
 	return view('avanza::fichas')->with('fichas',$fichas);}
 
 	 public function misfichas() {
 
     $fichas = Fichaje::all();
-	return view('avanza::fichaje/mis-fichas')->with('fichas',$fichas);}
+	return view('avanza::fichaje/mis-fichas')->with('fichas',$fichas);
+	dd($fichas);
+}
 	
 
 }

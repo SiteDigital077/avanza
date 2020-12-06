@@ -9,7 +9,6 @@
   <div class="row">
 							<!--begin::Dashboard-->
 <!--begin::Row-->
-<div class="row">
 
 <!--Begin::Row-->
 @if($conteo == 1)
@@ -114,7 +113,7 @@
 @endif
 </div>
 </div>
-</div>
+
 
 
 

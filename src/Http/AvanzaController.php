@@ -128,8 +128,13 @@ public function memo(){
 
 public function avanza(){
 	    $number = Auth::user()->id;
+	    if(!$this->tenantName){
 	    $conteo =  Avanzaempresa::where('usuario_id', '=', Auth::user()->id)->count();
 		$empresa = Avanzaempresa::where('usuario_id', '=', Auth::user()->id)->get();
+		}else{
+		$conteo =  \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('usuario_id', '=', Auth::user()->id)->count();
+		$empresa = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('usuario_id', '=', Auth::user()->id)->get();
+		}
 	   return view('avanza::fichaje/ficha')->with('conteo', $conteo)->with('empresa', $empresa);
 }
 

@@ -8,7 +8,7 @@ Route::group(['middleware' => ['auths','administrador']], function (){
 
 }); 
 
-Route::group(['middleware' => ['auths','fichador']], function (){
+Route::group(['middleware' => ['fichador']], function (){
 
 
 Route::get('gestion/avanza/mensaje', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@mensaje');
@@ -19,6 +19,8 @@ Route::get('gestion/avanza/crear', 'DigitalsiteSaaS\Avanza\Http\AvanzaController
 Route::post('gestion/avanza/crearficha', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@crearficha');
 Route::get('gestion/avanza/crear-empresa', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanzacrearempresa');
 Route::post('gestion/avanza/crearempresa', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@crearempresa');
+Route::get('avanza/editar-empresa/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarempresa');
+Route::post('avanza/editarempresa/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarempresaweb');
 
 Route::get('gestion/avanza', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanza');
 

@@ -55,7 +55,7 @@ class AvanzaController extends Controller{
     	$usuario = Auth::user()->id;
    		$conteo = DB::table('ficha')->where('usuario_id', '=', $usuario)->count();
     	$categories = \DigitalsiteSaaS\Pagina\Tenant\Page::where('categoria', '=', 1)->get();
-    	$paginas = \DigitalsiteSaaS\Pagina\Tenant\Page::all();	
+    	$paginas = Page::all();	
     	}
 		return view('avanza::fichaje/crear-ficha')->with('paginas', $paginas)->with('categories', $categories)->with('conteo', $conteo);
 }
@@ -63,6 +63,16 @@ class AvanzaController extends Controller{
   public function avanzacrearempresa(){
     	
 		return view('avanza::fichaje/crear-empresa');
+}
+
+  public function editarempresa($id){
+  	    if(!$this->tenantName){
+    	$empresa = Avanzaempresa::where('id', '=', $id)->get();
+        }else{
+       $empresa = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id', '=', $id)->get();
+        }
+
+		return view('avanza::fichaje/editar-empresa')->with('empresa', $empresa);
 }
 
 
@@ -78,8 +88,9 @@ public function avanzaficha(){
         $contenido = Fichaje::all();
          $contenida = Fichaje::all();
         $mensaje = DB::table('mesage')->where('interes','=',$numbersa)->get();
+        $conteo =  Avanzaempresa::where('usuario_id', '=', Auth::user()->id)->count();
 
-        return view('avanza::fichaje/ficha')->with('contenido', $contenido);
+        return view('avanza::fichaje/ficha')->with('contenido', $contenido)->with('conteo', $conteo);
     }
     elseif($number ==3)
     {
@@ -98,13 +109,13 @@ public function avanzaficha(){
 
          $contenida = \DigitalsiteSaaS\Avanza\Tenant\Fichaje::all();
         $mensaje = DB::table('mesage')->where('interes','=',$numbersa)->get();
-        return view('avanza::fichaje/ficha')->with('contenido', $contenido);
+        $conteo =  \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('usuario_id', '=', Auth::user()->id)->count();
+        return view('avanza::fichaje/ficha')->with('contenido', $contenido)->with('conteo', $conteo);
     }
     elseif($number ==3)
     {
     	$numbersa = Auth::user()->id;
     	$contenido = \DigitalsiteSaaS\Usuario\Tenant\Usuario::find($numbersa)->Fichas;
-
     	$contenida = \DigitalsiteSaaS\Usuario\Tenant\Usuario::find($numbersa)->Fichas;
        return view('avanza::fichaje/mis-fichas')->with('contenido', $contenido);
     }	
@@ -135,6 +146,7 @@ public function avanza(){
 		$conteo =  \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('usuario_id', '=', Auth::user()->id)->count();
 		$empresa = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('usuario_id', '=', Auth::user()->id)->get();
 		}
+	
 	   return view('avanza::fichaje/ficha')->with('conteo', $conteo)->with('empresa', $empresa);
 }
 
@@ -204,6 +216,50 @@ public function avanza(){
 		return Redirect('gestion/avanza')->with('status', 'ok_create');
      	}
 
+
+     		public function editarempresaweb($id){
+
+     			$number = Auth::user()->id;
+     	if(Input::file('file') == null){
+     		$imagel = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id','=',$id)->get();
+
+     	}else{   
+ 
+		$file = Input::file('file');
+		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
+		$url_imagen = $file->getClientOriginalName();
+		$subir=$file->move($destinoPath,$file->getClientOriginalName());
+			}
+		 if(!$this->tenantName){
+		$contenido = Avanzaempresa::find($id);
+     	}else{
+     	$contenido =  \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::find($id);	
+     	}
+		$contenido->empresa = Input::get('empresa');
+		$contenido->slug = Str::slug($contenido->empresa);
+		$contenido->titulo = Input::get('titulo');
+		$contenido->descripcion = Input::get('descripcion');
+		$contenido->contenido = Input::get('contenido');
+		if(Input::file('file') == null){
+		foreach($imagel as $imagel){
+		$contenido->imagen = $imagel->imagen;
+	    }
+	    }else{
+	    $contenido->imagen = '/fichaimg/clientes/'.$number.'/'.$url_imagen;	
+
+	    }
+		$contenido->url = Input::get('url');
+		$contenido->visualizacion = Input::get('visualizacion');
+		$contenido->tipo = Input::get('tipo');
+		$contenido->direccion = Input::get('direccion');
+		$contenido->telefono = Input::get('telefono');
+		$contenido->email = Input::get('email');
+		$contenido->ubicacion = Input::get('ubicacion');
+		$contenido->usuario_id = Input::get('usuario');
+		$contenido->save();
+
+		return Redirect('gestion/avanza')->with('status', 'ok_create');
+     	}
      	
      	public function mensaje(){
 	

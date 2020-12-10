@@ -134,7 +134,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label>Nombre Empresa</label>
+            <label>Nombre Producto o Servicio</label>
             {{Form::text('titulo', '', array('class' => 'form-control form-control-lg','maxlength' => '50','placeholder'=>'Ingrese nombre de la empresa','required' => 'required'))}}
           </div>
           <div class="form-group">

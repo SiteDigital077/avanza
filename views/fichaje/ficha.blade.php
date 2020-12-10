@@ -11,6 +11,7 @@
 <!--begin::Row-->
 
 <!--Begin::Row-->
+
 @if($conteo == 1)
 @foreach($empresa as $empresa)
 <div class="col-xl-12">
@@ -19,22 +20,22 @@
     style="background-position: right top; background-size: 30% auto; background-image: url(/avanza/assets/media/svg/shapes/abstract-4.svg)">
     <!--begin::Body-->
     <div class="card-body">
-        <a href="#" class="card-title font-weight-bold text-muted text-hover-primary font-size-h5">{{$empresa->empresa}} </a>
+        <a href="#" class="card-title font-weight-bold text-muted text-hover-primary font-size-h5 ml-8">{{$empresa->empresa}} </a>
 
-        <div class="font-weight-bold text-success mt-9 mb-5">3:30PM - 4:20PM</div>
-​        
+        <div class="font-weight-bold text-success mt-3 mb-6 ml-8">Empresa registrada {{date('d-m-Y', strtotime($empresa->created_at))}}</div>
 
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12 col-md-2 symbol symbol-50 symbol-lg-120 col-2">
-      <img alt="Pic" src="/fichaimg/clientes/5/sasa.jpg">
+      <img alt="Pic" src="{{$empresa->imagen}}">
     </div>
-    <div class="col-sm-12 col-md-6 text-dark-75 font-weight-bolder font-size-h5 m-0 col-6">
+    <div class="col-sm-12 col-md-10 text-dark-75 font-weight-bolder font-size-h5 m-0 mt-4">
+      <h2>{{$empresa->empresa}}</h2>
       {{$empresa->descripcion}}
     </div>
   </div>
 </div>
-        <a href="/gestion/avanza/fichas" type="button" class="btn btn-success btn-lg btn-block mt-5">INFORMACIÓN EMPRESA</a>
+        <a href="/avanza/editar-empresa/{{$empresa->id}}" type="button" class="btn btn-success btn-lg btn-block mt-5">INFORMACIÓN EMPRESA</a>
     </div>
     <!--end::Body-->
 </div>

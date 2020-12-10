@@ -121,7 +121,8 @@
         </div>
       </div>
       <!--begin::Form-->
-      {{ Form::open(array('files' => 'true', 'method' => 'POST','class' => 'form-horizontal','id' => 'kt_form_1', 'url' => array('gestion/avanza/crearempresa'))) }}
+      @foreach($empresa as $empresa)
+      {{ Form::open(array('files' => 'true', 'method' => 'POST','class' => 'form-horizontal','id' => 'kt_form_1', 'url' => array('avanza/editarempresa',$empresa->id))) }}
 
         <div class="card-body">
           <div class="form-group form-group-last">
@@ -134,20 +135,20 @@
           </div>
           <div class="form-group">
             <label>Nombre Empresa</label>
-            {{Form::text('empresa', '', array('class' => 'form-control form-control-lg','maxlength' => '50','placeholder'=>'Ingrese nombre de la empresa','required' => 'required'))}}
+            {{Form::text('empresa', $empresa->empresa, array('class' => 'form-control form-control-lg','maxlength' => '50','placeholder'=>'Ingrese nombre de la empresa','required' => 'required'))}}
           </div>
           <div class="form-group">
             <label>Titulo</label>
-            {{Form::text('titulo', '', array('class' => 'form-control form-control-lg','maxlength' => '55','placeholder'=>'Ingrese nombre de la empresa','required' => 'required'))}}
+            {{Form::text('titulo', $empresa->titulo, array('class' => 'form-control form-control-lg','maxlength' => '55','placeholder'=>'Ingrese nombre de la empresa','required' => 'required'))}}
           </div>
           <div class="form-group">
             <label>Descripción</label>
-            {{Form::text('descripcion', '', array('class' => 'form-control','maxlength' => '160','placeholder'=>'Ingrese nombre de la empresa'))}}
+            {{Form::text('descripcion', $empresa->descripcion, array('class' => 'form-control','maxlength' => '160','placeholder'=>'Ingrese nombre de la empresa'))}}
           </div>
 
           <div class="form-group">
             <label>Contenido</label>
-            {{Form::textarea('contenido', '', array('placeholder'=>'Descripción ampliada de la empresa','id'=>'mytextarea'))}}
+            {{Form::textarea('contenido', $empresa->contenido, array('placeholder'=>'Descripción ampliada de la empresa','id'=>'mytextarea'))}}
           </div>
 
 
@@ -160,7 +161,7 @@
 
           <div class="form-group">
             <label>Url página</label>
-            {{Form::text('url', '', array('class' => 'form-control','placeholder'=>'Ingrese URL'))}}
+            {{Form::text('url', $empresa->url, array('class' => 'form-control','placeholder'=>'Ingrese URL'))}}
           </div>
 
           <div class="form-group">
@@ -180,22 +181,22 @@
 
           <div class="form-group">
             <label>Teléfono</label>
-            {{Form::text('telefono', '', array('class' => 'form-control','placeholder'=>'Ingrese descripción de la empresa'))}}
+            {{Form::text('telefono', $empresa->telefono, array('class' => 'form-control','placeholder'=>'Ingrese descripción de la empresa'))}}
           </div>
 
           <div class="form-group">
             <label>Email</label>
-            {{Form::text('email', '', array('class' => 'form-control','placeholder'=>'Ingrese descripción de la empresa'))}}
+            {{Form::text('email', $empresa->email, array('class' => 'form-control','placeholder'=>'Ingrese descripción de la empresa'))}}
           </div>
 
           <div class="form-group">
             <label>Ubicación</label>
-            {{Form::text('ubicacion', '', array('class' => 'form-control','placeholder'=>'Ingrese descripción de la empresa'))}} 
+            {{Form::text('ubicacion', $empresa->ubicacion, array('class' => 'form-control','placeholder'=>'Ingrese descripción de la empresa'))}} 
           </div>
 
           <div class="form-group">
             <label>Dirección</label>
-            {{Form::text('direccion', '', array('class' => 'form-control','placeholder'=>'Ingrese descripción de la empresa'))}}   
+            {{Form::text('direccion', $empresa->direccion, array('class' => 'form-control','placeholder'=>'Ingrese descripción de la empresa'))}}   
           </div>
     
           {{Form::hidden('usuario', Auth::user()->id, array('class' => 'form-control'))}}
@@ -210,6 +211,7 @@
           <button type="reset" class="btn btn-secondary">Cancel</button>
         </div>
        {{ Form::close() }}
+       @endforeach
       <!--end::Form-->
     </div>
     <!--end::Card-->

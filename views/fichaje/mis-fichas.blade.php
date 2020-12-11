@@ -80,7 +80,7 @@
                     </div>
                     <div class="my-lg-0 my-1">
                         <a href="<?=URL::to('gestion/avanza/editar-ficha');?>/{{ $contenido->id }}" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Editar</a>
-                        <a href="<?=URL::to('gestion/avanza/eliminar-ficha/');?>/{{$contenido->id}}" class="btn btn-sm btn-info font-weight-bolder text-uppercase">Eliminar</a>
+                        <a href="<?=URL::to('gestion/avanza/eliminar-ficha/');?>/{{$contenido->id}}" class="btn btn-sm btn-danger font-weight-bolder text-uppercase">Eliminar</a>
                     </div>
                 </div>
                 <!--end: Title-->

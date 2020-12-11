@@ -35,7 +35,7 @@
     </div>
   </div>
 </div>
-        <a href="/avanza/editar-empresa/{{$empresa->id}}" type="button" class="btn btn-success btn-lg btn-block mt-5">INFORMACIÓN EMPRESA</a>
+        <a href="/avanza/editar-empresa/{{$empresa->id}}" type="button" class="btn btn-success btn-lg btn-block mt-5">EDITAR EMPRESA</a>
     </div>
     <!--end::Body-->
 </div>
@@ -54,15 +54,15 @@
     style="background-position: right top; background-size: 30% auto; background-image: url(/avanza/assets/media/svg/shapes/abstract-4.svg)">
     <!--begin::Body-->
     <div class="card-body">
-        <a href="#" class="card-title font-weight-bold text-muted text-hover-primary font-size-h5">FICHAS</a>
+        <a href="#" class="card-title font-weight-bold text-muted text-hover-primary font-size-h5">PRODUCTOS Y/O SERVICIOS</a>
 
-        <div class="font-weight-bold text-success mt-9 mb-5">3:30PM - 4:20PM</div>
+        <div class="font-weight-bold text-success mt-5 mb-5">3 Registros</div>
 
         <p class="text-dark-75 font-weight-bolder font-size-h5 m-0">
-            Craft a headline that is informative<br/>
-            and will capture readers
+            Promoción de productos y servcios<br/>
+            digitales
         </p>
-        <a href="/gestion/avanza/fichas" type="button" class="btn btn-success btn-lg btn-block mt-5">VER FICHAS</a>
+        <a href="/gestion/avanza/fichas" type="button" class="btn btn-success btn-lg btn-block mt-5">VER PRODCUCTOS Y/O SERVICIOS</a>
     </div>
     <!--end::Body-->
 </div>
@@ -76,7 +76,7 @@
     <div class="card-body">
         <a href="#" class="card-title font-weight-bold text-muted text-hover-primary font-size-h5">MENSAJES</a>
 
-        <div class="font-weight-bold text-success mt-9 mb-5">03 May 2020</div>
+        <div class="font-weight-bold text-success mt-5 mb-5">10 Mensajes</div>
 
         <p class="text-dark-75 font-weight-bolder font-size-h5 m-0">
             Great blog posts don’t just happen<br/>
@@ -97,7 +97,7 @@
     <div class="card-body">
         <a href="#" class="card-title font-weight-bold text-muted text-hover-primary font-size-h5">ESTADÍSTICAS</a>
 
-        <div class="font-weight-bold text-success mt-9 mb-5">ReactJS</div>
+        <div class="font-weight-bold text-success mt-5 mb-5">ReactJS</div>
 
         <p class="text-dark-75 font-weight-bolder font-size-h5 m-0">
             AirWays - A Front-end solution for<br/>

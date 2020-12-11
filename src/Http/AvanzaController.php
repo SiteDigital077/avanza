@@ -27,6 +27,7 @@ use Response;
 class AvanzaController extends Controller{
 
  protected $tenantName = null;
+ 
 
  public function __construct()
     {
@@ -217,19 +218,16 @@ public function avanza(){
      	}
 
 
-     		public function editarempresaweb($id){
-
-     			$number = Auth::user()->id;
+     	public function editarempresaweb($id){
+        $number = Auth::user()->id;
      	if(Input::file('file') == null){
-     		$imagel = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id','=',$id)->get();
-
+        $imagel = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id','=',$id)->get();
      	}else{   
- 
 		$file = Input::file('file');
 		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
 		$url_imagen = $file->getClientOriginalName();
 		$subir=$file->move($destinoPath,$file->getClientOriginalName());
-			}
+		}
 		 if(!$this->tenantName){
 		$contenido = Avanzaempresa::find($id);
      	}else{
@@ -282,6 +280,7 @@ public function avanza(){
 			
 		
 		public function editarficha($id){
+
 		if(!$this->tenantName){
 		$contenidonu = Muxu::join('pages','pages.id','=','ficha.page_id')
 	  			  ->orderBy('position','ASC')
@@ -339,10 +338,14 @@ public function avanza(){
 	
 public function actualizarficha($id){
 		$number = Auth::user()->id;
+		if(Input::file('file') == null){
+        $imagel = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id','=',$id)->get();
+     	}else{   
 		$file = Input::file('file');
 		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
 		$url_imagen = $file->getClientOriginalName();
 		$subir=$file->move($destinoPath,$file->getClientOriginalName());
+		}
 		$input = Input::all();
 		if(!$this->tenantName){
 		$contenido = Fichaje::find($id);
@@ -359,7 +362,13 @@ public function actualizarficha($id){
 		$contenido->content = Input::get('contenido');
 		$contenido->position = Input::get('descripseo');
 		$contenido->level = Input::get('nivel');
-		$contenido->image = '/fichaimg/clientes/'.$number.'/'.$url_imagen;
+		if(Input::file('file') == null){
+		foreach($imagel as $imagel){
+		$contenido->image = $imagel->imagen;
+	    }
+	    }else{
+	    $contenido->image = '/fichaimg/clientes/'.$number.'/'.$url_imagen;	
+	    }
 		$contenido->imageal = Input::get('animacion');
 		$contenido->website = Input::get('enlace');
 		$contenido->type = Input::get('tipo');

@@ -50,7 +50,7 @@ Route::get('memo/ajax-subcatxx',function(){
 Route::group(['middleware' => ['web']], function (){
 
 Route::post('gestion/avanza/usuario', 'DigitalsiteSaaS\Pagina\Http\WebController@crearusuario');
-
+Route::post('mensajes/mensajeficha', 'DigitalsiteSaaS\Pagina\Http\WebController@mensajeficha');
 
 Route::get('banner-clic/{id}', function($id){
 

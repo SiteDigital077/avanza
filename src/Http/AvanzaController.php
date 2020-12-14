@@ -445,10 +445,13 @@ public function actualizarfichaimg($id, FichaUpdateimgRequest $request){
 	    }
 
 
-	        public function leer($id){
-			
+	    public function leer($id){	
 		$input = Input::all();
+		if(!$this->tenantName){
 		$contenido = Message::find($id);
+     	}else{
+     	$contenido = \DigitalsiteSaaS\Avanza\Tenant\Message::find($id);
+     	}
 		$contenido->cargo = '1';
 		$contenido->save();
 	

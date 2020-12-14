@@ -30,7 +30,7 @@ Route::get('gestion/avanza/editar-ficha-img/{id}', 'DigitalsiteSaaS\Avanza\Http\
 Route::post('gestion/avanza/actualizarficha/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@actualizarficha');
 Route::post('gestion/avanza/actualizarfichaimg/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@actualizarfichaimg');
 Route::get('gestion/avanza/eliminar-ficha/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@eliminarficha');
-Route::resource('gestion/avanza/leer', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@leer');
+Route::get('gestion/avanza/leer', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@leer');
 
 Route::get('memo/ajax-subcat', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@memo');
 

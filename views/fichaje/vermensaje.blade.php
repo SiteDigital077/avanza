@@ -1,139 +1,146 @@
-
-@extends ('LayoutsSD.siteavanzaint')
-<style>
-.shape{	
-	border-style: solid; border-width: 0 70px 40px 0; float:right; height: 0px; width: 0px;
-	-ms-transform:rotate(360deg); /* IE 9 */
-	-o-transform: rotate(360deg);  /* Opera 10.5 */
-	-webkit-transform:rotate(360deg); /* Safari and Chrome */
-	transform:rotate(360deg);
-}
-.offer{
-	background:#fff; border:1px solid #ddd; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); margin: 15px 0; overflow:hidden;
-}
-.offer-radius{
-	border-radius:7px;
-}
-.offer-danger {	border-color: #d9534f; }
-.offer-danger .shape{
-	border-color: transparent #d9534f transparent transparent;
-	border-color: rgba(255,255,255,0) #d9534f rgba(255,255,255,0) rgba(255,255,255,0);
-}
-.offer-success {	border-color: #5cb85c; }
-.offer-success .shape{
-	border-color: transparent #5cb85c transparent transparent;
-	border-color: rgba(255,255,255,0) #5cb85c rgba(255,255,255,0) rgba(255,255,255,0);
-}
-.offer-default {	border-color: #999999; }
-.offer-default .shape{
-	border-color: transparent #999999 transparent transparent;
-	border-color: rgba(255,255,255,0) #999999 rgba(255,255,255,0) rgba(255,255,255,0);
-}
-.offer-primary {	border-color: #428bca; }
-.offer-primary .shape{
-	border-color: transparent #428bca transparent transparent;
-	border-color: rgba(255,255,255,0) #428bca rgba(255,255,255,0) rgba(255,255,255,0);
-}
-.offer-info {	border-color: #5bc0de; }
-.offer-info .shape{
-	border-color: transparent #5bc0de transparent transparent;
-	border-color: rgba(255,255,255,0) #5bc0de rgba(255,255,255,0) rgba(255,255,255,0);
-}
-.offer-warning {	border-color: #CE1836; }
-.offer-warning .shape{
-	border-color: transparent #CE1836 transparent transparent;
-	border-color: rgba(255,255,255,0) #CE1836 rgba(255,255,255,0) rgba(255,255,255,0);
-}
-
-.shape-text{
-	color:#fff; font-size:12px; font-weight:bold; position:relative; right:-40px; top:2px; white-space: nowrap;
-	-ms-transform:rotate(30deg); /* IE 9 */
-	-o-transform: rotate(360deg);  /* Opera 10.5 */
-	-webkit-transform:rotate(30deg); /* Safari and Chrome */
-	transform:rotate(30deg);
-}	
-.offer-content{
-	padding:70px 20px 100px;
-}
-</style>
-
- @section('ContenidoSite-01') 
-
-  {{ Html::style('Calendario/css/calendar.css') }}
-   {{ Html::style('Calendario/css/bootstrap-datetimepicker.min.css') }}
-   {{ Html::style('//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css') }}
-
-<div class="col-xs-10 col-sm-10 col-md-10 col-lg-8 col-lg-offset-2">
-  
-   
-<div class="container">
-		<div class="row">
-            			<div class="offer offer-radius offer-warning">
-					<div class="shape">
-						<div class="shape-text">
-							msj							
-						</div>
-					</div>
-					<div class="offer-content">
-		<div class="row">
-
-
-    <div class="col-lg-11">
-        <div class="media">
-            <a class="pull-left" href="#">
-                <img class="media-object dp img-circle" src="/siteavanza/imagenes/mensaje.png" style="width: 100px;height:100px;">
-            </a>
-            <div class="media-body">
-                <h2 class="media-heading">Detalles de Mensaje</h2>
-                <h5>Software Desarrollado por <a href="http://sitedigital.com.co">Sitedigital</a></h5>
-                <hr style="margin:8px auto">
-                <h4>Nombre</h4>
-                <small>{{$mensaje->nombre}}</small>
-                <hr>
-                <h4>Email</h4>
-                <small>{{$mensaje->email}}</small>
-                <hr>
-                <h4>Empresa</h4>
-                <small>{{$mensaje->sujeto}}</small>
-                <hr>
-                <h4>Teléfono</h4>
-                <small>{{$mensaje->datos}}</small>
-                <hr>
-                <h4>Mensaje</h4>
-                <small>{{$mensaje->mensaje}}</small>
-                <hr>
-     
+@extends ('LayoutsSD.siteavanza')
+  @section('ContenidoSite-01') 
+                <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class=" container ">
+                            <!--begin::Row-->
+<div class="row">
+    <!--begin::Col-->
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 offset-xl-3">
+        <!--begin::Card-->
+        <div class="card card-custom gutter-b card-stretch">
+            <!--begin::Body-->
+            <div class="card-body pt-4">
+                <!--begin::Toolbar-->
+                <div class="d-flex justify-content-end">
+                    <div class="dropdown dropdown-inline" data-toggle="tooltip" title="Quick actions" data-placement="left">
+                        <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="ki ki-bold-more-hor"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                            <!--begin::Navigation-->
+<ul class="navi navi-hover">
+    <li class="navi-header font-weight-bold py-4">
+        <span class="font-size-lg">Choose Label:</span>
+        <i class="flaticon2-information icon-md text-muted" data-toggle="tooltip" data-placement="right" title="Click to learn more..."></i>
+    </li>
+    <li class="navi-separator mb-3 opacity-70"></li>
+    <li class="navi-item">
+        <a href="#" class="navi-link">
+            <span class="navi-text">
+                <span class="label label-xl label-inline label-light-success">Customer</span>
+            </span>
+        </a>
+    </li>
+    <li class="navi-item">
+        <a href="#" class="navi-link">
+            <span class="navi-text">
+                <span class="label label-xl label-inline label-light-danger">Partner</span>
+            </span>
+        </a>
+    </li>
+    <li class="navi-item">
+        <a href="#" class="navi-link">
+            <span class="navi-text">
+                <span class="label label-xl label-inline label-light-warning">Suplier</span>
+            </span>
+        </a>
+    </li>
+    <li class="navi-item">
+        <a href="#" class="navi-link">
+            <span class="navi-text">
+                <span class="label label-xl label-inline label-light-primary">Member</span>
+            </span>
+        </a>
+    </li>
+    <li class="navi-item">
+        <a href="#" class="navi-link">
+            <span class="navi-text">
+                <span class="label label-xl label-inline label-light-dark">Staff</span>
+            </span>
+        </a>
+    </li>
+    <li class="navi-separator mt-3 opacity-70"></li>
+    <li class="navi-footer py-4">
+        <a class="btn btn-clean font-weight-bold btn-sm" href="#">
+            <i class="ki ki-plus icon-sm"></i>
+            Add new
+        </a>
+    </li>
+</ul>
+<!--end::Navigation-->
+                        </div>
+                    </div>
+                </div>
+                <!--end::Toolbar-->
+                <!--begin::User-->
+                <div class="d-flex align-items-end mb-7">
+                    <!--begin::Pic-->
+                    <div class="d-flex align-items-center">
+                        <!--begin::Pic-->
+                        <div class="flex-shrink-0 mr-4 mt-lg-0 mt-3">
+                            <div class="symbol symbol-circle symbol-lg-75">
+                                <img src="/siteavanza/imagenes/mensaje.png" alt="image"/>
+                            </div>
+                            <div class="symbol symbol-lg-75 symbol-circle symbol-primary d-none">
+                                <span class="font-size-h3 font-weight-boldest">JM</span>
+                            </div>
+                        </div>
+                        <!--end::Pic-->
+                        <!--begin::Title-->
+                        <div class="d-flex flex-column">
+                            <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4 mb-0">{{$mensaje->nombre}}</a>
+                            <span class="text-muted font-weight-bold">{{$mensaje->sujeto}}</span>
+                        </div>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Title-->
+                </div>
+                <!--end::User-->
+                <!--begin::Desc-->
+                <p class="mb-7 text-justify">
+                    {{$mensaje->mensaje}}
+                </p>
+                <!--end::Desc-->
+                <!--begin::Info-->
+                <div class="mb-7">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-dark-75 font-weight-bolder mr-2">Email:</span>
+                        <a href="#" class="text-muted text-hover-primary">{{$mensaje->email}}</a>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-cente my-1">
+                        <span class="text-dark-75 font-weight-bolder mr-2">Teléfono:</span>
+                        <a href="#" class="text-muted text-hover-primary">{{$mensaje->datos}}</a>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-cente my-1">
+                        <span class="text-dark-75 font-weight-bolder mr-2">Interés:</span>
+                        <a href="#" class="text-muted text-hover-primary">{{$mensaje->empresa}}</a>
+                    </div>
+             
+                </div>
+                <!--end::Info-->
+                <a href="#" class="btn btn-block btn-sm btn-light-warning font-weight-bolder text-uppercase py-4 disabled">Mensaje Recibido</a>
             </div>
+            <!--end::Body-->
         </div>
-
+        <!--end::Card-->
     </div>
-
+    <!--end::Col-->
     
-
 </div>
-                     						
-						 
-					</div>
-				</div>
-			</div>
-      
-	</div>
-
+<!--end::Row-->
+<!--begin::Row-->
+<div class="row">
    
-
-
 </div>
+<!--end::Row-->
+<!--begin::Pagination-->
 
-    {{ Html::script('Calendario/jquery/jquery.min.js') }}
-     {{ Html::script('Calendario/bootstrap2/js/bootstrap.min.js') }}
-     {{ Html::script('Calendario/js/underscore-min.js') }}
-     {{ Html::script('Calendario/js/jstz.min.js') }}
-     {{ Html::script('Calendario/js/es-ES.js') }}
-     {{ Html::script('Calendario/js/calendar.js') }}
-     {{ Html::script('Calendario/js/apps.js') }}
-     {{ Html::script('Calendario/js/moment.min.js') }}
-     {{ Html::script('Calendario/js/bootstrap-datetimepicker.min.js') }}
-     {{ Html::script('Calendario/js/datetime.js') }}
-     {{ Html::script('Facturacion/js/validator.js') }}
-     {{ Html::script('//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/js/bootstrapValidator.min.js') }}
+<!--end::Pagination-->
+                    </div>
+        <!--end::Container-->
+    </div>
+<!--end::Entry-->
     @stop
+

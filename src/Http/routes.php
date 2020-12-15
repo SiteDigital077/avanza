@@ -13,8 +13,8 @@ Route::group(['middleware' => ['auths','fichador']], function (){
 
 Route::get('gestion/avanza/mensaje', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@mensaje');
 Route::get('gestion/avanza/fichas', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanzaficha');
-
-Route::resource('gestion/avanza/mensaje-ficha', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@mensajeficha');
+		
+Route::get('gestion/avanza/mensaje-ficha/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@mensajeficha');
 Route::get('gestion/avanza/crear', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanzacrear');
 Route::post('gestion/avanza/crearficha', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@crearficha');
 Route::get('gestion/avanza/crear-empresa', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanzacrearempresa');
@@ -30,7 +30,7 @@ Route::get('gestion/avanza/editar-ficha-img/{id}', 'DigitalsiteSaaS\Avanza\Http\
 Route::post('gestion/avanza/actualizarficha/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@actualizarficha');
 Route::post('gestion/avanza/actualizarfichaimg/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@actualizarfichaimg');
 Route::get('gestion/avanza/eliminar-ficha/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@eliminarficha');
-Route::get('gestion/avanza/leer', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@leer');
+Route::get('gestion/avanza/leer/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@leer');
 
 Route::get('memo/ajax-subcat', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@memo');
 

@@ -61,6 +61,8 @@ class AvanzaController extends Controller{
 		return view('avanza::fichaje/crear-ficha')->with('paginas', $paginas)->with('categories', $categories)->with('conteo', $conteo);
 }
 
+
+
   public function avanzacrearempresa(){
     	
 		return view('avanza::fichaje/crear-empresa');
@@ -273,7 +275,11 @@ public function avanza(){
     {
     	
     	$numbersa = Auth::user()->id;
-        $mensaje = DB::table('mesage')->where('interes','=',$numbersa)->get();
+        if(!$this->tenantName){
+        $mensaje = Message::where('interes','=',$numbersa)->orderBy('created_at', 'DESC')->get();
+        }else{
+        $mensaje = \DigitalsiteSaaS\Pagina\Tenant\Message::where('interes','=',$numbersa)->orderBy('created_at', 'DESC')->get();	
+        }
        return view('avanza::fichaje/mensaje')->with('mensaje', $mensaje);
     }
      	}
@@ -450,7 +456,7 @@ public function actualizarfichaimg($id, FichaUpdateimgRequest $request){
 		if(!$this->tenantName){
 		$contenido = Message::find($id);
      	}else{
-     	$contenido = \DigitalsiteSaaS\Avanza\Tenant\Message::find($id);
+     	$contenido = \DigitalsiteSaaS\Pagina\Tenant\Message::find($id);
      	}
 		$contenido->cargo = '1';
 		$contenido->save();
@@ -470,10 +476,14 @@ public function actualizarfichaimg($id, FichaUpdateimgRequest $request){
 	    }
 
 	    public function mensajeficha($id){
-				
+	    $number = Auth::user()->id;	
+	    if(!$this->tenantName){	
 		$mensaje = Message::find($id);
-		$number = Auth::user()->id;
-		$mensajema = DB::table('mesage')->where('interes', '=', $number)->where('cargo', '=', NULL)->count();
+		$mensajema = Message::where('interes', '=', $number)->where('cargo', '=', NULL)->count();
+	    }else{
+	    $mensaje = \DigitalsiteSaaS\Pagina\Tenant\Message::find($id);
+		$mensajema = \DigitalsiteSaaS\Pagina\Tenant\Message::where('interes', '=', $number)->where('cargo', '=', NULL)->count();
+	    }
 	    return view('avanza::fichaje/vermensaje')->with('mensaje', $mensaje)->with('mensajema', $mensajema);
 	    }
 

@@ -142,7 +142,7 @@
           <td>{{ $mensaje->nombre }} </td>
           <td>{{ $mensaje->sujeto }}</td>
           <td>{{ $mensaje->email }}</td>
-          <td>{{ $mensaje->telefono }}</td>
+          <td>{{ $mensaje->datos }}</td>
           <td>{{ $mensaje->empresa }}</td>
           <td>{{ $mensaje->created_at }}</td>
           <td>

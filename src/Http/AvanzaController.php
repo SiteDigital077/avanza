@@ -130,9 +130,9 @@ public function avanzaficha(){
 public function memo(){
 	$cat_id = Input::get('cat_id');
 	if(!$this->tenantName){
-	$subcategories = Page::where('page_id', '=', $cat_id)->get();
+	$subcategories = Page::where('page_id', '=', $cat_id)->orderBy('page', 'DESC')->get();
     }else{
-    $subcategories = \DigitalsiteSaaS\Pagina\Tenant\Page::where('page_id', '=', $cat_id)->get();
+    $subcategories = \DigitalsiteSaaS\Pagina\Tenant\Page::where('page_id', '=', $cat_id)->orderBy('page', 'ASC')->get();
     }
 	return Response::json($subcategories);
 }

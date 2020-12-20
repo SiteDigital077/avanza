@@ -48,7 +48,8 @@ Route::get('memo/ajax-subcatxx',function(){
 
 
 Route::group(['middleware' => ['web']], function (){
-
+Route::get('filtro/ajax-subcat', 'DigitalsiteSaaS\Pagina\Http\WebController@memo');
+Route::post('gestion/filtro/home', 'DigitalsiteSaaS\Pagina\Http\WebController@filtrohome');
 Route::post('gestion/avanza/usuario', 'DigitalsiteSaaS\Pagina\Http\WebController@crearusuario');
 Route::post('mensajes/mensajeficha', 'DigitalsiteSaaS\Pagina\Http\WebController@mensajeficha');
 

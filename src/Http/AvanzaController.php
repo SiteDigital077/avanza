@@ -78,6 +78,19 @@ class AvanzaController extends Controller{
 		return view('avanza::fichaje/editar-empresa')->with('empresa', $empresa);
 }
 
+  public function memo(){
+  	    $cat_id = Input::get('cat_id');
+  	    if(!$this->tenantName){
+    	$subcategories = Page::where('page_id', '=', $cat_id)->get();
+        }else{
+       $subcategories = DigitalsiteSaaS\Pagina\Page::where('page_id', '=', $cat_id)->get();
+        }
+
+		return Response::json($subcategories);
+}
+
+
+
 
 public function avanzaficha(){
 

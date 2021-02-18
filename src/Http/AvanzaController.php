@@ -217,6 +217,11 @@ public function avanza(){
 		$contenido->email = Input::get('email');
 		$contenido->ubicacion = Input::get('ubicacion');
 		$contenido->usuario_id = Input::get('usuario');
+		$contenido->facebook = Input::get('facebook');
+		$contenido->twitter = Input::get('twitter');
+		$contenido->linkedin = Input::get('linkedin');
+		$contenido->instagram = Input::get('instagram');
+		$contenido->youtube = Input::get('youtube');
 		$contenido->save();
 
 		return Redirect('gestion/avanza')->with('status', 'ok_create');
@@ -258,6 +263,11 @@ public function avanza(){
 		$contenido->telefono = Input::get('telefono');
 		$contenido->email = Input::get('email');
 		$contenido->ubicacion = Input::get('ubicacion');
+		$contenido->facebook = Input::get('facebook');
+		$contenido->twitter = Input::get('twitter');
+		$contenido->linkedin = Input::get('linkedin');
+		$contenido->instagram = Input::get('instagram');
+		$contenido->youtube = Input::get('youtube');
 		$contenido->usuario_id = Input::get('usuario');
 		$contenido->save();
 

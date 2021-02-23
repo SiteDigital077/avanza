@@ -186,6 +186,11 @@ public function avanza(){
 		$contenido->num = Input::get('num');
 		$contenido->page_id = Input::get('subcategory');
 		$contenido->responsive = Input::get('category');
+		$contenido->facebook = Input::get('facebook');
+		$contenido->twitter = Input::get('twitter');
+		$contenido->linkedin = Input::get('linkedin');
+		$contenido->instagram = Input::get('instagram');
+		$contenido->youtube = Input::get('youtube');
 		$contenido->usuario_id = Input::get('usuario');
 		$contenido->save();
 
@@ -380,6 +385,11 @@ public function actualizarficha($id){
 		$contenido->ubicacion = Input::get('ubicacion');
 		$contenido->content = Input::get('contenido');
 		$contenido->position = Input::get('descripseo');
+		$contenido->facebook = Input::get('facebook');
+		$contenido->twitter = Input::get('twitter');
+		$contenido->linkedin = Input::get('linkedin');
+		$contenido->instagram = Input::get('instagram');
+		$contenido->youtube = Input::get('youtube');
 		$contenido->level = Input::get('nivel');
 		if(Input::file('file') == null){
 		foreach($imagel as $imagel){

@@ -215,6 +215,31 @@
             <label>Dirección</label>
             {{Form::text('direccion', $contenido->direccion, array('class' => 'form-control','placeholder'=>'Ingrese descripción de la empresa'))}}   
           </div>
+
+          <div class="form-group">
+            <label>Facebook</label>
+            {{Form::text('facebook', $contenido->facebook, array('class' => 'form-control','placeholder'=>'Ingrese url Facebook'))}}   
+          </div>
+
+          <div class="form-group">
+            <label>Linkedin</label>
+            {{Form::text('linkedin', $contenido->linkedin, array('class' => 'form-control','placeholder'=>'Ingrese url Linkedin'))}}
+          </div>
+
+          <div class="form-group">
+            <label>Twitter</label>
+            {{Form::text('twitter', $contenido->twitter, array('class' => 'form-control','placeholder'=>'Ingrese url Twitter'))}}   
+          </div>
+
+          <div class="form-group">
+            <label>Instagram</label>
+            {{Form::text('instagram', $contenido->instagram, array('class' => 'form-control','placeholder'=>'Ingrese url Instagram'))}}   
+          </div>
+
+          <div class="form-group">
+            <label>Youtube</label>
+            {{Form::text('youtube', $contenido->youtube, array('class' => 'form-control','placeholder'=>'Ingrese url Youtube'))}}   
+          </div>
     
           {{Form::hidden('imageal', '', array('class' => 'form-control'))}}   
           {{Form::hidden('tipo', 'ficha', array('class' => 'form-control'))}}

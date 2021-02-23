@@ -201,27 +201,27 @@
           
           <div class="form-group">
             <label>Facebook</label>
-            {{Form::text('facebook', '', array('class' => 'form-control','placeholder'=>'Ingrese url Facebook'))}}   
+            {{Form::text('facebook', $empresa->facebook, array('class' => 'form-control','placeholder'=>'Ingrese url Facebook'))}}   
           </div>
 
           <div class="form-group">
             <label>Linkedin</label>
-            {{Form::text('linkedin', '', array('class' => 'form-control','placeholder'=>'Ingrese url Linkedin'))}}
+            {{Form::text('linkedin', $empresa->linkedin, array('class' => 'form-control','placeholder'=>'Ingrese url Linkedin'))}}
           </div>
 
           <div class="form-group">
             <label>Twitter</label>
-            {{Form::text('twitter', '', array('class' => 'form-control','placeholder'=>'Ingrese url Twitter'))}}   
+            {{Form::text('twitter', $empresa->twitter, array('class' => 'form-control','placeholder'=>'Ingrese url Twitter'))}}   
           </div>
 
           <div class="form-group">
             <label>Instagram</label>
-            {{Form::text('instagram', '', array('class' => 'form-control','placeholder'=>'Ingrese url Instagram'))}}   
+            {{Form::text('instagram', $empresa->instagram, array('class' => 'form-control','placeholder'=>'Ingrese url Instagram'))}}   
           </div>
 
           <div class="form-group">
             <label>Youtube</label>
-            {{Form::text('youtube', '', array('class' => 'form-control','placeholder'=>'Ingrese url Youtube'))}}   
+            {{Form::text('youtube', $empresa->youtube, array('class' => 'form-control','placeholder'=>'Ingrese url Youtube'))}}   
           </div>
           {{Form::hidden('usuario', Auth::user()->id, array('class' => 'form-control'))}}
         

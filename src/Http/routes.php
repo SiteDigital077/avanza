@@ -63,15 +63,9 @@ return redirect($url);
 }
 	});
 
-Route::get('empresa/{id}', function($page){
-$plantilla = DigitalsiteSaaS\Pagina\Tenant\Template::all();
-$plantillaes = DigitalsiteSaaS\Pagina\Tenant\Template::find(1);
-$contenido = DigitalsiteSaaS\Pagina\Tenant\Fichaje::where('slug','=',$page)->get();
-$contenida = DigitalsiteSaaS\Pagina\Tenant\Fichaje::where('slug','=',$page)->get();
-$menu = DigitalsiteSaaS\Pagina\Tenant\Page::whereNull('page_id')->orderBy('posta', 'desc')->get();
-$blogfoot = DigitalsiteSaaS\Pagina\Tenant\Bloguero::inRandomOrder()->take(6)->get();
-return View::make('avanza::fichaje/avanza')->with('contenido', $contenido)->with('plantilla', $plantilla)->with('menu', $menu)->with('contenida', $contenida)->with('plantillaes', $plantillaes)->with('blogfoot', $blogfoot);
-});
+
+Route::get('empresa/{id}', 'DigitalsiteSaaS\Pagina\Http\WebController@detallempresa');
+
   
 Route::get('empresa/{id}/datos', function($page){
 $plantilla = DigitalsiteSaaS\Pagina\Template::all();

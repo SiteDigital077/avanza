@@ -44,24 +44,42 @@
 </div>     
   </div>
   <div class="card-footer text-muted bg-default text-white">
-  	<div class="row">
+    <div class="row">
     <div class="col-3" style="font-size: 14px">
      <a href="/empresa/{!!$contenido->slug!!}"> Ver información</a>
-    </div>	
+    </div>  
     <div class="col-3" style="font-size: 14px">
       <b>12</b> Ofertas laborales
-    </div>	
+    </div>  
     <div class="col-3" style="font-size: 14px">
       <b>5</b> Recomendaciones
-    </div>	
-  	<div class="text-center col-3">
-	<span style="margin-right: 10px; font-size: 16px" class="fa fa-twitter text-right"></span>
-	<span style="margin-right: 10px; font-size: 16px" class="fa fa-facebook"></span>
-	<span style="margin-right: 10px; font-size: 16px" class="fa fa-instagram"></span>
-	<span style="margin-right: 10px; font-size: 16px"class="fa fa-youtube"></span>
-	<span style="margin-right: 10px; font-size: 16px" class="fa fa-linkedin"></span>
-	<span style="margin-right: 10px; font-size: 16px" class="fa fa-vimeo"></span>
-	</div>
+    </div>  
+    <div class="text-center col-3">
+  @if($contenido->twitter == '') 
+  @else
+  <a href="{{$contenido->twitter}}" target="_blank"><span style="margin-right: 10px; font-size: 16px" class="fa fa-twitter text-right"></span></a>
+  @endif
+  @if($contenido->facebook == '') 
+  @else
+  <a href="{{$contenido->facebook}}" target="_blank"><span style="margin-right: 10px; font-size: 16px" class="fa fa-facebook"></span></a>
+  @endif
+  @if($contenido->instagram == '') 
+  @else
+  <a href="{{$contenido->instagram}}" target="_blank"><span style="margin-right: 10px; font-size: 16px" class="fa fa-instagram"></span></a>
+  @endif
+  @if($contenido->youtube == '') 
+  @else
+  <a href="{{$contenido->youtube}}" target="_blank"><span style="margin-right: 10px; font-size: 16px"class="fa fa-youtube"></span></a>
+  @endif
+  @if($contenido->linkedin == '') 
+  @else
+  <a href="{{$contenido->linkedin}}" target="_blank"><span style="margin-right: 10px; font-size: 16px" class="fa fa-linkedin"></span></a>
+  @endif
+  @if($contenido->vimeo == '') 
+  @else
+  <a href="{{$contenido->vimeo}}" target="_blank"><span style="margin-right: 10px; font-size: 16px" class="fa fa-vimeo"></span></a>
+  @endif
+  </div>
   </div>
 </div>
 </div>
@@ -74,16 +92,16 @@
 <div class="container">
 <div class="row">
 <div class="col-lg-8 pt-2  mb-3" style="background: #fff;border: 1px solid rgba(0,0,0,.125)">
-	{!!$contenido->content!!}
+  {!!$contenido->content!!}
 </div>
 <div class="col-lg-4 pt-0 mb-3">
-	<div class="col-lg-12" style="background: #fff;border: 1px solid rgba(0,0,0,.125); padding: 0px">
-		<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11200.675829730526!2d-75.6876061!3d45.42609535!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cce04ff4fe494ef%3A0x26bb54f60c29f6e!2sParliament+Hill!5e0!3m2!1sen!2sca!4v1528808935681" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
-		<hr>
-		<div class="ml-4 mr-4 mb-3" style="color: #828282; font-size: 15px;text-align: justify;">
-		Dirección: {!!$contenido->direccion!!}
-		</div>
-	</div>
+  <div class="col-lg-12" style="background: #fff;border: 1px solid rgba(0,0,0,.125); padding: 0px">
+    <iframe src="{{$contenido->ubicacion}}" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+    <hr>
+    <div class="ml-4 mr-4 mb-3" style="color: #828282; font-size: 15px;text-align: justify;">
+    Dirección: {!!$contenido->direccion!!}
+    </div>
+  </div>
 
 </div>
 </div>
@@ -97,7 +115,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Contáctar Empresa</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -108,22 +126,22 @@
        
        <div class="form-group">
         <label for="email">Nombre:</label>
-        <input type="text" class="form-control" id="email" name="nombre">
+        <input type="text" class="form-control" id="email" name="nombre" required="required">
        </div>
   
-  	   <div class="form-group">
+       <div class="form-group">
         <label for="pwd">Empresa:</label>
-        <input type="text" class="form-control" id="pwd" name="sujeto">
+        <input type="text" class="form-control" id="pwd" name="sujeto" required="required">
        </div>
 
        <div class="form-group">
         <label for="pwd">Número contacto:</label>
-        <input type="text" class="form-control" id="pwd" name="datos">
+        <input type="text" class="form-control" id="pwd" name="datos" required="required">
        </div>
 
        <div class="form-group">
         <label for="pwd">Correo electrónico:</label>
-        <input type="email" class="form-control" id="pwd" name="email">
+        <input type="email" class="form-control" id="pwd" name="email" required="required">
        </div>
 
        <div class="form-group">
@@ -137,14 +155,14 @@
        <input type="hidden" class="form-control" id="pwd" value="{{$contenido->usuario_id}}" name="interes">
        <input type="hidden" class="form-control" id="pwd" value="{{$contenido->email}}" name="ema">
        
-       <button type="submit" class="btn btn-primary col-lg-12">Enviar</button>
+      
       
       </form>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn roberto-btn">Save changes</button>
+        <button type="submit" class="btn btn-primary col-lg-12 btn roberto-btn">Enviar</button>
+        
       </div>
     </div>
   </div>

@@ -363,7 +363,11 @@ public function avanza(){
 public function actualizarficha($id){
 		$number = Auth::user()->id;
 		if(Input::file('file') == null){
-        $imagel = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id','=',$id)->get();
+		if(!$this->tenantName){
+        $imagel = Avanzaempresa::where('id','=',$id)->get();
+        }else{
+        $imagel = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id','=',$id)->get();	
+        }
      	}else{   
 		$file = Input::file('file');
 		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
@@ -374,7 +378,7 @@ public function actualizarficha($id){
 		if(!$this->tenantName){
 		$contenido = Fichaje::find($id);
 		}else{
-		$contenido = \DigitalsiteSaaS\Avanza\Tenant\Fichaje::find($id);	
+		$contenido = \DigitalsiteSaaS\Avanza\Tenant\Fichaje::find($id);
 		}
 		$contenido->title = Input::get('titulo');
 		$contenido->slug = Str::slug($contenido->title);

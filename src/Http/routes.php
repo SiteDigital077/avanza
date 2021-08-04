@@ -65,7 +65,7 @@ return redirect($url);
 
 
 Route::get('empresa/{id}', 'DigitalsiteSaaS\Pagina\Http\WebController@detallempresa');
-
+Route::get('empresas/{id}', 'DigitalsiteSaaS\Pagina\Http\WebController@infoempresa');
   
 Route::get('empresa/{id}/datos', function($page){
 $plantilla = DigitalsiteSaaS\Pagina\Template::all();

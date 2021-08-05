@@ -13,12 +13,11 @@
 
 @section('ContenidoSite-01')
 
-<div class="row" style="background:#FAFAFD">
- <div class="container">
+
 
   @foreach($contenido as $contenido)
 
-   <div class="row mt-3 mb-3">
+   <div class="container mt-3 mb-3">
     <div class="card text-center">
      
      <div class="card-body"> 
@@ -40,16 +39,16 @@
      <div class="card-footer text-muted bg-default text-white">
       <div class="row">
        
-       <div class="col-3" style="font-size: 14px">
+       <div class="col-xs-12 pt-xs-5 col-lg-3" style="font-size: 14px">
         <a href="/empresa/{!!$contenido->slug!!}"> Ver información</a>
        </div>  
-       <div class="col-3" style="font-size: 14px">
+       <div class="col-xs-12 col-lg-3" style="font-size: 14px">
         <b>12</b> Ofertas laborales
        </div>  
-       <div class="col-3" style="font-size: 14px">
+       <div class="col-xs-12 col-lg-3" style="font-size: 14px">
         <b>5</b> Recomendaciones
        </div>  
-       <div class="text-center col-3">
+       <div class="text-center col-xs-12 col-lg-3">
        @if($contenido->twitter == '') 
        @else
        <a href="{{$contenido->twitter}}" target="_blank"><span style="margin-right: 10px; font-size: 16px" class="fa fa-twitter text-right"></span></a>
@@ -81,14 +80,13 @@
 </div>
 
 @endforeach
-</div>
-</div>
+
 
 <div class="row" style="background: #FAFAFD">
 <div class="container">
 <div class="row">
-<div class="col-lg-8 pt-2  mb-3" style="background: #fff;border: 1px solid rgba(0,0,0,.125)">
-  {!!$contenido->contenido!!}
+<div class="col-lg-8  mb-3">
+  <p style="border: 1px solid rgba(0,0,0,.125)">{!!$contenido->contenido!!}</p>
 </div>
 <div class="col-lg-4 pt-0 mb-3">
   <div class="col-lg-12" style="background: #fff;border: 1px solid rgba(0,0,0,.125); padding: 0px">

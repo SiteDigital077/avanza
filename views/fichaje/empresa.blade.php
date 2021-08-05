@@ -88,10 +88,12 @@
 <div class="col-lg-8  mb-3">
   <p style="border: 1px solid rgba(0,0,0,.125)">{!!$contenido->contenido!!}</p>
   @foreach($productos as $productos)
-<div class="media">
+<div class="media mt-4">
+  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
   <a class="pull-left" href="#">
-    <img class="media-object" src="{{$productos->image}}" alt="Image">
+    <img class="media-object" src="https://www.clubrayo.com/fichaimg/clientes/4/POLO-NARANJA.jpg" alt="Image">
   </a>
+  </div>
   <div class="media-body">
     <h4 class="media-heading">{{$productos->title}}</h4>
     <p>{{$productos->description}}</p>

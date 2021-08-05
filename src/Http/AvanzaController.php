@@ -185,6 +185,7 @@ public function avanza(){
 		$contenido->website = Input::get('enlace');
 		$contenido->type = Input::get('tipo');
 		$contenido->num = Input::get('num');
+		$contenido->identificador = Input::get('identificador');
 		$contenido->page_id = Input::get('subcategory');
 		$contenido->responsive = Input::get('category');
 		$contenido->facebook = Input::get('facebook');
@@ -391,6 +392,7 @@ public function actualizarficha($id){
 		$contenido->content = Input::get('contenido');
 		$contenido->position = Input::get('descripseo');
 		$contenido->facebook = Input::get('facebook');
+		$contenido->identificador = Input::get('identificador');
 		$contenido->twitter = Input::get('twitter');
 		$contenido->linkedin = Input::get('linkedin');
 		$contenido->instagram = Input::get('instagram');

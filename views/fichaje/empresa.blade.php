@@ -87,6 +87,18 @@
 <div class="row">
 <div class="col-lg-8  mb-3">
   <p style="border: 1px solid rgba(0,0,0,.125)">{!!$contenido->contenido!!}</p>
+  @foreach($productos as $productos)
+<div class="media">
+  <a class="pull-left" href="#">
+    <img class="media-object" src="{{$productos->image}}" alt="Image">
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading">{{$productos->title}}</h4>
+    <p>{{$productos->description}}</p>
+  </div>
+</div>
+@endforeach
+
 </div>
 <div class="col-lg-4 pt-0 mb-3">
   <div class="col-lg-12" style="background: #fff;border: 1px solid rgba(0,0,0,.125); padding: 0px">
@@ -101,7 +113,6 @@
 </div>
 </div>
 </div>
-
 
 
 <!-- Modal -->

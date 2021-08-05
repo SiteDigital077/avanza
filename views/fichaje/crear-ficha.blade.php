@@ -191,7 +191,11 @@
         </div>
           </div>
 
-      
+          @foreach($identificador as $identificador)
+          
+            {{Form::hidden('identificador', $identificador->id, array('class' => 'form-control','placeholder'=>'Ingrese descripción de la empresa'))}}
+        
+          @endforeach
 
           <div class="form-group">
             <label>Teléfono</label>

@@ -9,11 +9,8 @@ Route::group(['middleware' => ['auths','administrador']], function (){
 }); 
 
 Route::group(['middleware' => ['auths','fichador']], function (){
-
-
 Route::get('gestion/avanza/mensaje', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@mensaje');
 Route::get('gestion/avanza/fichas', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanzaficha');
-		
 Route::get('gestion/avanza/mensaje-ficha/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@mensajeficha');
 Route::get('gestion/avanza/crear', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanzacrear');
 Route::post('gestion/avanza/crearficha', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@crearficha');
@@ -21,26 +18,19 @@ Route::get('gestion/avanza/crear-empresa', 'DigitalsiteSaaS\Avanza\Http\AvanzaCo
 Route::post('gestion/avanza/crearempresa', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@crearempresa');
 Route::get('avanza/editar-empresa/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarempresa');
 Route::post('avanza/editarempresa/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarempresaweb');
-
 Route::get('gestion/avanza', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanza');
-
-
 Route::get('gestion/avanza/editar-ficha/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarficha');
 Route::get('gestion/avanza/editar-ficha-img/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarfichaimg');
 Route::post('gestion/avanza/actualizarficha/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@actualizarficha');
 Route::post('gestion/avanza/actualizarfichaimg/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@actualizarfichaimg');
 Route::get('gestion/avanza/eliminar-ficha/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@eliminarficha');
 Route::get('gestion/avanza/leer/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@leer');
-
 Route::get('memo/ajax-subcat', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@memo');
-
 Route::get('memo/ajax-subcatxx',function(){
-
-		$cat_id = Input::get('cat_id');
-		$subcategories = DigitalsiteSaaS\Pagina\Page::where('page_id', '=', $cat_id)->get();
-		return Response::json($subcategories);
+ $cat_id = Input::get('cat_id');
+ $subcategories = DigitalsiteSaaS\Pagina\Page::where('page_id', '=', $cat_id)->get();
+ return Response::json($subcategories);
 });
-
 });
 
 

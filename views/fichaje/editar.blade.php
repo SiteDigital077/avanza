@@ -194,8 +194,9 @@
         </div>
         </div>
           </div>
-
-
+          
+            {{Form::hidden('identificador', $contenido->identificador, array('class' => 'form-control','placeholder'=>'Ingrese descripción de la empresa'))}}
+        
           <div class="form-group">
             <label>Teléfono</label>
             {{Form::text('telefono', $contenido->telefono, array('class' => 'form-control','placeholder'=>'Ingrese descripción de la empresa'))}}

@@ -52,13 +52,15 @@ class AvanzaController extends Controller{
    		$conteo = DB::table('ficha')->where('usuario_id', '=', $usuario)->count();
     	$categories = Page::where('categoria', '=', 1)->get();
     	$paginas = Page::all();
+    	$identificador = Avanzaempresa::where('usuario_id', '=', $usuario)->get();
     	}else{
     	$usuario = Auth::user()->id;
    		$conteo = DB::table('ficha')->where('usuario_id', '=', $usuario)->count();
     	$categories = \DigitalsiteSaaS\Pagina\Tenant\Page::where('categoria', '=', 1)->get();
-    	$paginas = Page::all();	
+    	$paginas = \DigitalsiteSaaS\Pagina\Tenant\Page::all();
+    	$identificador = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('usuario_id', '=', $usuario)->get();
     	}
-		return view('avanza::fichaje/crear-ficha')->with('paginas', $paginas)->with('categories', $categories)->with('conteo', $conteo);
+		return view('avanza::fichaje/crear-ficha')->with('paginas', $paginas)->with('categories', $categories)->with('conteo', $conteo)->with('identificador', $identificador);
 }
 
 
@@ -144,15 +146,14 @@ public function avanzaficha(){
 
 
 public function avanza(){
-	    $number = Auth::user()->id;
-	    if(!$this->tenantName){
+ $number = Auth::user()->id;
+ if(!$this->tenantName){
 	    $conteo =  Avanzaempresa::where('usuario_id', '=', Auth::user()->id)->count();
 		$empresa = Avanzaempresa::where('usuario_id', '=', Auth::user()->id)->get();
 		}else{
 		$conteo =  \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('usuario_id', '=', Auth::user()->id)->count();
 		$empresa = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('usuario_id', '=', Auth::user()->id)->get();
-		}
-	
+		}	
 	   return view('avanza::fichaje/ficha')->with('conteo', $conteo)->with('empresa', $empresa);
 }
 

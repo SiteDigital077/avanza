@@ -90,15 +90,15 @@
   <p style="border: 1px solid rgba(0,0,0,.125)">{!!$contenido->contenido!!}</p>
   @foreach($productos as $productos)
 <div class="media mt-4 pt-4 pb-4 pr-5 pl-5" style="border: 5px double #d5d5d5">
-  <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
   <a class="pull-left" href="#">
     <img class="media-object" src="{{$productos->image}}" alt="Image">
   </a>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+  <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
   <div class="media-body">
     <h4 class="media-heading">{{$productos->title}}</h4>
-    <p class="text-justify">{{$productos->description}}</p>
+    <p class="text-justify">{{$productos->position}}</p>
     <a href="/empresa/{{$productos->slug}}" type="button" class="site-button m-l10">Ver Producto</a>
   </div>
  </div>

@@ -92,7 +92,7 @@
 <div class="container">
 <div class="row">
 <div class="col-lg-8 pt-2  mb-3" style="background: #fff;border: 1px solid rgba(0,0,0,.125)">
-  {!!$contenido->content!!}
+  {!!$contenido->contenido!!}
 </div>
 <div class="col-lg-4 pt-0 mb-3">
   <div class="col-lg-12" style="background: #fff;border: 1px solid rgba(0,0,0,.125); padding: 0px">
@@ -155,15 +155,15 @@
        <input type="hidden" class="form-control" id="pwd" value="{{$contenido->usuario_id}}" name="interes">
        <input type="hidden" class="form-control" id="pwd" value="{{$contenido->email}}" name="ema">
        
-      
-      
-      </form>
-
-      </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary col-lg-12 btn roberto-btn">Enviar</button>
         
       </div>
+      
+      </form>
+
+      </div>
+      
     </div>
   </div>
 </div>

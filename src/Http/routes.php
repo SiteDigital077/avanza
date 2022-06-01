@@ -42,19 +42,12 @@ Route::get('filtro/ajax-subcat', 'DigitalsiteSaaS\Pagina\Http\WebController@memo
 Route::post('gestion/filtro/home', 'DigitalsiteSaaS\Pagina\Http\WebController@filtrohome');
 Route::post('gestion/avanza/usuario', 'DigitalsiteSaaS\Pagina\Http\WebController@crearusuario');
 Route::post('mensajes/mensajeficha', 'DigitalsiteSaaS\Pagina\Http\WebController@mensajeficha');
+Route::get('banner-clic/{id}', 'DigitalsiteSaaS\Pagina\Http\WebController@contador');
 
-Route::get('banner-clic/{id}', function($id){
-
-$url = DB::table('contents')->where('id',$id)->pluck('url');
-DB::table('contents')->where('id',$id)->limit(1)->update(['content'=> DB::raw('content + 1')]);
- foreach ($url as $url){
-
-return redirect($url);
-}
-	});
 
 
 Route::get('empresa/{id}', 'DigitalsiteSaaS\Pagina\Http\WebController@detallempresa');
+Route::get('empresaweb/{id}', 'DigitalsiteSaaS\Pagina\Http\WebController@detallenegocio');
 Route::get('empresas/{id}', 'DigitalsiteSaaS\Pagina\Http\WebController@infoempresa');
   
 Route::get('empresa/{id}/datos', function($page){

@@ -231,6 +231,39 @@
         
 
           <!--begin: Code-->
+           <div class="form-group">
+          <div class="custom-file">
+              <input type="file" name="file_1" class="custom-file-input" id="customFile"/>
+              <label class="custom-file-label" for="customFile">Seleccionar Imagen</label>
+            </div>
+          </div>
+          <div class="form-group">
+          <div class="custom-file">
+              <input type="file" name="file_2" class="custom-file-input" id="customFile"/>
+              <label class="custom-file-label" for="customFile">Seleccionar Imagen</label>
+            </div>
+          </div>
+
+<div class="form-group">
+          <div class="custom-file">
+              <input type="file" name="file_3" class="custom-file-input" id="customFile"/>
+              <label class="custom-file-label" for="customFile">Seleccionar Imagen</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+          <div class="custom-file">
+              <input type="file" name="file_4" class="custom-file-input" id="customFile"/>
+              <label class="custom-file-label" for="customFile">Seleccionar Imagen</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+          <div class="custom-file">
+              <input type="file" name="file_5" class="custom-file-input" id="customFile"/>
+              <label class="custom-file-label" for="customFile">Seleccionar Imagen</label>
+            </div>
+          </div>
        
           <!--end: Code-->
         </div>

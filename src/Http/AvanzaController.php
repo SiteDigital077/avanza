@@ -5,6 +5,7 @@ namespace DigitalsiteSaaS\Avanza\Http;
 use DigitalsiteSaaS\Avanza\Fichaje;
 use DigitalsiteSaaS\Avanza\Empresa;
 use DigitalsiteSaaS\Avanza\Avanzaempresa;
+use DigitalsiteSaaS\Avanza\Promocion;
 use DigitalsiteSaaS\Pagina\Message;
 use DigitalsiteSaaS\Pagina\Page;
 use DigitalsiteSaaS\Pagina\Muxu;
@@ -143,6 +144,44 @@ public function avanzaficha(){
 }
 
 
+
+public function promociones(){
+	if(!$this->tenantName){
+    $promociones = Promocion::where('user_id','=',Auth::user()->id)->get();
+	}else{
+ 	$promociones = \DigitalsiteSaaS\Avanza\Tenant\Promocion::where('user_id','=',Auth::user()->id)->get();
+		}
+	return view('avanza::fichaje/promociones')->with('promociones', $promociones);
+}
+
+public function crearpromocion(){
+    	
+		return view('avanza::fichaje/crear-promocion');
+}
+
+
+	public function crearpromociones(){
+		$number = Auth::user()->id;
+		$file = Input::file('file');
+		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
+		$url_imagen = $file->getClientOriginalName();
+		$subir=$file->move($destinoPath,$file->getClientOriginalName());
+	    if(!$this->tenantName){
+		$contenido = new Promocion;
+     	}else{
+     	$contenido = new \DigitalsiteSaaS\Avanza\Tenant\Promocion;	
+     	}
+		$contenido->promocion = Input::get('promocion');
+		$contenido->desde = Input::get('desde');
+		$contenido->hasta = Input::get('hasta');
+		$contenido->image = '/fichaimg/clientes/'.$number.'/'.$url_imagen;
+		$contenido->cupones = Input::get('cupones');
+		$contenido->user_id = Auth::user()->id;
+		
+		$contenido->save();
+
+		return Redirect('/gestion/avanza/promociones')->with('status', 'ok_create');
+     	}
 
 
 public function avanza(){
@@ -323,36 +362,36 @@ public function avanza(){
 	    $contenido->imagen = '/fichaimg/clientes/'.$number.'/'.$url_imagen;	
 	    }
 	    if(Input::file('file_1') == null){
-		foreach($imagel as $imagel){
+		foreach($imagel_1 as $imagel){
 		$contenido->imagen_1 = $imagel->imagen_1;
 	    }
 	    }else{
 	    $contenido->imagen_1 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_1;
 	    }
 	    if(Input::file('file_2') == null){
-		foreach($imagel as $imagel){
+		foreach($imagel_2 as $imagel){
 		$contenido->imagen_2 = $imagel->imagen_2;
 	    }
 	    }else{
 	    $contenido->imagen_2 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_2;
 	    }
 	    if(Input::file('file_3') == null){
-		foreach($imagel as $imagel){
+		foreach($imagel_3 as $imagel){
 		$contenido->imagen_3 = $imagel->imagen_3;
 	    }
 	    }else{
 	    $contenido->imagen_3 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_3;
 	    }
 	    if(Input::file('file_4') == null){
-		foreach($imagel as $imagel){
+		foreach($imagel_4 as $imagel){
 		$contenido->imagen_4 = $imagel->imagen_4;
 	    }
 	    }else{
 	    $contenido->imagen_4 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_4;
 	    }
-	    if(Input::file('file_4') == null){
-		foreach($imagel as $imagel){
-		$contenido->imagen_4 = $imagel->imagen_5;
+	    if(Input::file('file_5') == null){
+		foreach($imagel_5 as $imagel){
+		$contenido->imagen_5 = $imagel->imagen_5;
 	    }
 	    }else{
 	    $contenido->imagen_5 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_5;

@@ -9,6 +9,8 @@ use DigitalsiteSaaS\Avanza\Promocion;
 use DigitalsiteSaaS\Pagina\Message;
 use DigitalsiteSaaS\Pagina\Page;
 use DigitalsiteSaaS\Pagina\Muxu;
+use DigitalsiteSaaS\Pagina\Pais;
+use DigitalsiteSaaS\Pagina\Departamentocon;
 use DigitalsiteSaaS\Usuario\Usuario;
 
 use App\Http\Requests\FichaCreateRequest;
@@ -67,18 +69,28 @@ class AvanzaController extends Controller{
 
 
   public function avanzacrearempresa(){
-    	
-		return view('avanza::fichaje/crear-empresa');
+  	if(!$this->tenantName){
+    	$paises = Pais::orderBy('pais', 'ASC')->get();
+    	$departamentos = Departamentocon::orderBy('departamento', 'ASC')->get();
+    }else{
+    	$paises = \DigitalsiteSaaS\Pagina\Tenant\Pais::orderBy('pais', 'ASC')->get();
+    	$departamentos = \DigitalsiteSaaS\Pagina\Tenant\Departamentocon::orderBy('departamento', 'ASC')->get();
+    }
+		return view('avanza::fichaje/crear-empresa')->with('paises', $paises)->with('departamentos', $departamentos);
 }
 
   public function editarempresa($id){
   	    if(!$this->tenantName){
-    	$empresa = Avanzaempresa::where('id', '=', $id)->get();
+    	$empresa = Avanzaempresa::join('departamentos','departamentos.id','=','ciudad_id')->join('municipios','municipios.id','=','barrio_id')->where('avanza_empresa.id', '=', $id)->get();
+    	$paises = Pais::orderBy('pais', 'ASC')->get();
+    	$departamentos = Departamentocon::orderBy('departamento', 'ASC')->get();
         }else{
-       $empresa = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id', '=', $id)->get();
+       $empresa = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::join('departamentos','departamentos.id','=','ciudad_id')->join('municipios','municipios.id','=','barrio_id')->where('avanza_empresa.id', '=', $id)->get();
+       $paises = \DigitalsiteSaaS\Pagina\Tenant\Pais::orderBy('pais', 'ASC')->get();
+    	$departamentos = \DigitalsiteSaaS\Pagina\Tenant\Departamentocon::orderBy('departamento', 'ASC')->get();
         }
 
-		return view('avanza::fichaje/editar-empresa')->with('empresa', $empresa);
+		return view('avanza::fichaje/editar-empresa')->with('empresa', $empresa)->with('paises', $paises)->with('departamentos', $departamentos);
 }
 
   public function memo(){
@@ -288,6 +300,8 @@ public function avanza(){
 		$contenido->linkedin = Input::get('linkedin');
 		$contenido->instagram = Input::get('instagram');
 		$contenido->youtube = Input::get('youtube');
+		$contenido->ciudad_id = Input::get('ciudad');
+		$contenido->barrio_id = Input::get('municipio');
 		$contenido->save();
 
 		return Redirect('gestion/avanza')->with('status', 'ok_create');
@@ -409,6 +423,8 @@ public function avanza(){
 		$contenido->instagram = Input::get('instagram');
 		$contenido->youtube = Input::get('youtube');
 		$contenido->usuario_id = Input::get('usuario');
+		$contenido->ciduad_id = Input::get('ciudad');
+		$contenido->barrio_id = Input::get('municipio');
 		$contenido->save();
 
 		return Redirect('gestion/avanza')->with('status', 'ok_create');

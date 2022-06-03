@@ -150,6 +150,26 @@
             {{Form::textarea('contenido', '', array('placeholder'=>'Descripción ampliada de la empresa','id'=>'mytextarea'))}}
           </div>
 
+          <div class="form-group">
+           <div class="row">
+            <div class="col-md-6">
+              <label>Pais</label>
+             <select id="ciudad" name="ciudad" class="form-control" size="1">
+              <option value="" disabled selected>Seleccione ciudad</option>
+               @foreach($departamentos as $departamentos)
+                <option value="{{$departamentos->id}}">{{$departamentos->departamento}}</option>
+               @endforeach
+             </select>
+            </div>
+           
+            <div class="col-md-6">
+              <label >Ciudad</label>
+             <select name="municipio" id="municipio" class="form-control" size="1">
+              <option></option>
+             </select>
+            </div>
+          </div>
+          </div>                                                  
 
           <div class="form-group">
           <div class="custom-file">
@@ -315,7 +335,42 @@
             });
         });
       });
-   </script>   
+   </script> 
+
+   <script type="text/javascript">
+     
+      $('#pais').on('change',function(e){
+        console.log(e);
+
+        var cat_id = e.target.value;
+
+        $.get('/ubicacionciudad/ajax-subcatweb?cat_id=' + cat_id, function(data){
+            $('#ciudad').empty();
+            $.each(data, function(index, subcatObj){
+              $('#ciudad').append('<option value="" style="display:none">Seleccione Ciudad</option>','<option value="'+subcatObj.id+'">'+subcatObj.departamento+'</option>' );
+
+            });
+        });
+      });
+   </script>  
+
+
+   <script type="text/javascript">
+     
+      $('#ciudad').on('change',function(e){
+        console.log(e);
+
+        var cat_id = e.target.value;
+
+        $.get('/ubicacion/ajax-subcatweb?cat_id=' + cat_id, function(data){
+            $('#municipio').empty();
+            $.each(data, function(index, subcatObj){
+              $('#municipio').append('<option value="" style="display:none">Seleccione Barrio</option>','<option value="'+subcatObj.id+'">'+subcatObj.municipio+'</option>');
+
+            });
+        });
+      });
+   </script>    
    
 
    <script src="/modulo-avanza/validaciones/crear-empresa.js"></script>

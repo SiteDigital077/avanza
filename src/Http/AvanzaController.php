@@ -81,11 +81,11 @@ class AvanzaController extends Controller{
 
   public function editarempresa($id){
   	    if(!$this->tenantName){
-    	$empresa = Avanzaempresa::join('departamentos','departamentos.id','=','ciudad_id')->join('municipios','municipios.id','=','barrio_id')->where('avanza_empresa.id', '=', $id)->get();
+    	$empresa = Avanzaempresa::leftjoin('departamentos','departamentos.id','=','ciudad_id')->leftjoin('municipios','municipios.id','=','barrio_id')->where('avanza_empresa.id', '=', $id)->get();
     	$paises = Pais::orderBy('pais', 'ASC')->get();
     	$departamentos = Departamentocon::orderBy('departamento', 'ASC')->get();
         }else{
-       $empresa = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::join('departamentos','departamentos.id','=','ciudad_id')->join('municipios','municipios.id','=','barrio_id')->where('avanza_empresa.id', '=', $id)->get();
+       $empresa = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::leftjoin('departamentos','departamentos.id','=','ciudad_id')->leftjoin('municipios','municipios.id','=','barrio_id')->where('avanza_empresa.id', '=', $id)->get();
        $paises = \DigitalsiteSaaS\Pagina\Tenant\Pais::orderBy('pais', 'ASC')->get();
     	$departamentos = \DigitalsiteSaaS\Pagina\Tenant\Departamentocon::orderBy('departamento', 'ASC')->get();
         }

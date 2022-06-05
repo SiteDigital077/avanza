@@ -718,10 +718,10 @@ if(!$this->tenantName){
 		$contenido->cupones = Input::get('cupones');
 		if(Input::file('file') == null){
 		foreach($imagel as $imagel){
-		$contenido->imagen = $imagel->imagen;
+		$contenido->image = $imagel->imagen;
 	    }
 	    }else{
-	    $contenido->imagen = '/fichaimg/clientes/'.$number.'/'.$url_imagen;	
+	    $contenido->image = '/fichaimg/clientes/'.$number.'/'.$url_imagen;	
 	    }	    
 		$contenido->save();
 

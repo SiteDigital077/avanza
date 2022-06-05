@@ -23,6 +23,8 @@ Route::get('avanza/editar-empresa/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaCont
 Route::post('avanza/editarempresa/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarempresaweb');
 Route::get('gestion/avanza', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanza');
 Route::get('gestion/avanza/editar-ficha/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarficha');
+Route::get('gestion/avanza/editar-promo/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarpromocion');
+Route::post('gestion/avanza/editarpromo/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarpromo');
 Route::get('gestion/avanza/editar-ficha-img/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarfichaimg');
 Route::post('gestion/avanza/actualizarficha/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@actualizarficha');
 Route::post('gestion/avanza/actualizarfichaimg/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@actualizarfichaimg');

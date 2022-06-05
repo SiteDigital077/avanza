@@ -694,4 +694,52 @@ if(!$this->tenantName){
 }
 	
 
+     	public function editarpromo($id){
+        $number = Auth::user()->id;
+     	if(Input::file('file') == null){
+        $imagel = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id','=',$id)->get();
+     	}else{   
+		$file = Input::file('file');
+		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
+		$url_imagen = $file->getClientOriginalName();
+		$subir=$file->move($destinoPath,$file->getClientOriginalName());
+		}
+		
+		
+		if(!$this->tenantName){
+		$contenido = Promocion::find($id);
+     	}else{
+     	$contenido =  \DigitalsiteSaaS\Avanza\Tenant\Promocion::find($id);	
+     	}
+		$contenido->promocion = Input::get('promocion');
+		$contenido->slug = Str::slug($contenido->promocion);
+		$contenido->desde = Input::get('desde');
+		$contenido->hasta = Input::get('hasta');
+		$contenido->cupones = Input::get('cupones');
+		if(Input::file('file') == null){
+		foreach($imagel as $imagel){
+		$contenido->imagen = $imagel->imagen;
+	    }
+	    }else{
+	    $contenido->imagen = '/fichaimg/clientes/'.$number.'/'.$url_imagen;	
+	    }	    
+		$contenido->save();
+
+		return Redirect('gestion/avanza/promociones')->with('status', 'ok_create');
+     	}
+
+
+
+	    public function editarpromocion($id) {
+		if(!$this->tenantName){
+    	 $promociones = Promocion::find($id);
+		 }else{
+	     $promociones = \DigitalsiteSaaS\Avanza\Tenant\Promocion::find($id);
+	      }
+
+	     return view('avanza::fichaje/editar-promocion')->with('promociones', $promociones);
+       
+}
+
+
 }

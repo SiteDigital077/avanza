@@ -184,6 +184,7 @@ public function crearpromocion(){
      	$contenido = new \DigitalsiteSaaS\Avanza\Tenant\Promocion;	
      	}
 		$contenido->promocion = Input::get('promocion');
+		$contenido->sluge = Str::slug($contenido->promocion);
 		$contenido->desde = Input::get('desde');
 		$contenido->hasta = Input::get('hasta');
 		$contenido->image = '/fichaimg/clientes/'.$number.'/'.$url_imagen;
@@ -712,7 +713,7 @@ if(!$this->tenantName){
      	$contenido =  \DigitalsiteSaaS\Avanza\Tenant\Promocion::find($id);	
      	}
 		$contenido->promocion = Input::get('promocion');
-		$contenido->slug = Str::slug($contenido->promocion);
+		$contenido->sluge = Str::slug($contenido->promocion);
 		$contenido->desde = Input::get('desde');
 		$contenido->hasta = Input::get('hasta');
 		$contenido->cupones = Input::get('cupones');

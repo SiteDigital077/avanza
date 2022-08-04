@@ -109,6 +109,29 @@
 </div>
 <!--end::Stats Widget 3-->
 </div>
+
+
+<div class="col-xl-4">
+        <!--begin::Stats Widget 3-->
+<div class="card card-custom bgi-no-repeat card-stretch gutter-b"
+    style="background-position: right top; background-size: 30% auto; background-image: url(/avanza/assets/media/svg/shapes/abstract-1.svg)">
+
+    <!--begin::body-->
+    <div class="card-body">
+        <a href="#" class="card-title font-weight-bold text-muted text-hover-primary font-size-h5">PROMOCIONES</a>
+
+        <div class="font-weight-bold text-success mt-5 mb-5">ReactJS</div>
+
+        <p class="text-dark-75 font-weight-bolder font-size-h5 m-0">
+            AirWays - A Front-end solution for<br/>
+            airlines build with ReactJS
+        </p>
+         <a href="/gestion/avanza/promociones" type="button" class="btn btn-success btn-lg btn-block mt-5">VER PROMOCIONES</a>
+    </div>
+    <!--end::Body-->
+</div>
+<!--end::Stats Widget 3-->
+</div>
 <!--End::Row-->
 @else
 @endif

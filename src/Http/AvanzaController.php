@@ -424,7 +424,7 @@ public function avanza(){
 		$contenido->instagram = Input::get('instagram');
 		$contenido->youtube = Input::get('youtube');
 		$contenido->usuario_id = Input::get('usuario');
-		$contenido->ciduad_id = Input::get('ciudad');
+		$contenido->ciudad_id = Input::get('ciudad');
 		$contenido->barrio_id = Input::get('municipio');
 		$contenido->save();
 

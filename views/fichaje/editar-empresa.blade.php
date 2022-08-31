@@ -122,7 +122,7 @@
       </div>
       <!--begin::Form-->
       @foreach($empresa as $empresa)
-      {{ Form::open(array('files' => 'true', 'method' => 'POST','class' => 'form-horizontal','id' => 'kt_form_1', 'url' => array('avanza/editarempresa',$empresa->id))) }}
+      {{ Form::open(array('files' => 'true', 'method' => 'POST','class' => 'form-horizontal','id' => 'kt_form_1', 'url' => array('avanza/editarempresa',Request::segment(3)))) }}
 
         <div class="card-body">
           <div class="form-group form-group-last">

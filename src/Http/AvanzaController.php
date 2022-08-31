@@ -5,9 +5,12 @@ namespace DigitalsiteSaaS\Avanza\Http;
 use DigitalsiteSaaS\Avanza\Fichaje;
 use DigitalsiteSaaS\Avanza\Empresa;
 use DigitalsiteSaaS\Avanza\Avanzaempresa;
+use DigitalsiteSaaS\Avanza\Promocion;
 use DigitalsiteSaaS\Pagina\Message;
 use DigitalsiteSaaS\Pagina\Page;
 use DigitalsiteSaaS\Pagina\Muxu;
+use DigitalsiteSaaS\Pagina\Pais;
+use DigitalsiteSaaS\Pagina\Departamentocon;
 use DigitalsiteSaaS\Usuario\Usuario;
 
 use App\Http\Requests\FichaCreateRequest;
@@ -66,18 +69,28 @@ class AvanzaController extends Controller{
 
 
   public function avanzacrearempresa(){
-    	
-		return view('avanza::fichaje/crear-empresa');
+  	if(!$this->tenantName){
+    	$paises = Pais::orderBy('pais', 'ASC')->get();
+    	$departamentos = Departamentocon::orderBy('departamento', 'ASC')->get();
+    }else{
+    	$paises = \DigitalsiteSaaS\Pagina\Tenant\Pais::orderBy('pais', 'ASC')->get();
+    	$departamentos = \DigitalsiteSaaS\Pagina\Tenant\Departamentocon::orderBy('departamento', 'ASC')->get();
+    }
+		return view('avanza::fichaje/crear-empresa')->with('paises', $paises)->with('departamentos', $departamentos);
 }
 
   public function editarempresa($id){
   	    if(!$this->tenantName){
-    	$empresa = Avanzaempresa::where('id', '=', $id)->get();
+    	$empresa = Avanzaempresa::leftjoin('departamentos','departamentos.id','=','ciudad_id')->leftjoin('municipios','municipios.id','=','barrio_id')->where('avanza_empresa.id', '=', $id)->get();
+    	$paises = Pais::orderBy('pais', 'ASC')->get();
+    	$departamentos = Departamentocon::orderBy('departamento', 'ASC')->get();
         }else{
-       $empresa = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id', '=', $id)->get();
+       $empresa = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::leftjoin('departamentos','departamentos.id','=','ciudad_id')->leftjoin('municipios','municipios.id','=','barrio_id')->where('avanza_empresa.id', '=', $id)->get();
+       $paises = \DigitalsiteSaaS\Pagina\Tenant\Pais::orderBy('pais', 'ASC')->get();
+    	$departamentos = \DigitalsiteSaaS\Pagina\Tenant\Departamentocon::orderBy('departamento', 'ASC')->get();
         }
 
-		return view('avanza::fichaje/editar-empresa')->with('empresa', $empresa);
+		return view('avanza::fichaje/editar-empresa')->with('empresa', $empresa)->with('paises', $paises)->with('departamentos', $departamentos);
 }
 
   public function memo(){
@@ -144,6 +157,45 @@ public function avanzaficha(){
 
 
 
+public function promociones(){
+	if(!$this->tenantName){
+    $promociones = Promocion::where('user_id','=',Auth::user()->id)->get();
+	}else{
+ 	$promociones = \DigitalsiteSaaS\Avanza\Tenant\Promocion::where('user_id','=',Auth::user()->id)->get();
+		}
+	return view('avanza::fichaje/promociones')->with('promociones', $promociones);
+}
+
+public function crearpromocion(){
+    	
+		return view('avanza::fichaje/crear-promocion');
+}
+
+
+	public function crearpromociones(){
+		$number = Auth::user()->id;
+		$file = Input::file('file');
+		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
+		$url_imagen = $file->getClientOriginalName();
+		$subir=$file->move($destinoPath,$file->getClientOriginalName());
+	    if(!$this->tenantName){
+		$contenido = new Promocion;
+     	}else{
+     	$contenido = new \DigitalsiteSaaS\Avanza\Tenant\Promocion;	
+     	}
+		$contenido->promocion = Input::get('promocion');
+		$contenido->sluge = Str::slug($contenido->promocion);
+		$contenido->desde = Input::get('desde');
+		$contenido->hasta = Input::get('hasta');
+		$contenido->image = '/fichaimg/clientes/'.$number.'/'.$url_imagen;
+		$contenido->cupones = Input::get('cupones');
+		$contenido->user_id = Auth::user()->id;
+		
+		$contenido->save();
+
+		return Redirect('/gestion/avanza/promociones')->with('status', 'ok_create');
+     	}
+
 
 public function avanza(){
  $number = Auth::user()->id;
@@ -202,9 +254,24 @@ public function avanza(){
      	public function crearempresa(){
 		$number = Auth::user()->id;
 		$file = Input::file('file');
+		$file_1= Input::file('file_1');
+		$file_2 = Input::file('file_2');
+		$file_3 = Input::file('file_3');
+		$file_4 = Input::file('file_4');
+		$file_5 = Input::file('file_5');
 		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
 		$url_imagen = $file->getClientOriginalName();
+		$url_imagen_1 = $file_1->getClientOriginalName();
+		$url_imagen_2 = $file_2->getClientOriginalName();
+		$url_imagen_3 = $file_3->getClientOriginalName();
+		$url_imagen_4 = $file_4->getClientOriginalName();
+		$url_imagen_5 = $file_5->getClientOriginalName();
 		$subir=$file->move($destinoPath,$file->getClientOriginalName());
+		$subir=$file_1->move($destinoPath,$file_1->getClientOriginalName());
+		$subir=$file_2->move($destinoPath,$file_2->getClientOriginalName());
+		$subir=$file_3->move($destinoPath,$file_3->getClientOriginalName());
+		$subir=$file_4->move($destinoPath,$file_4->getClientOriginalName());
+		$subir=$file_5->move($destinoPath,$file_5->getClientOriginalName());
 	    if(!$this->tenantName){
 		$contenido = new Avanzaempresa;
      	}else{
@@ -216,6 +283,11 @@ public function avanza(){
 		$contenido->descripcion = Input::get('descripcion');
 		$contenido->contenido = Input::get('contenido');
 		$contenido->imagen = '/fichaimg/clientes/'.$number.'/'.$url_imagen;
+		$contenido->imagen_1 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_1;
+		$contenido->imagen_2 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_2;
+		$contenido->imagen_3 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_3;
+		$contenido->imagen_4 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_4;
+		$contenido->imagen_5 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_5;
 		$contenido->url = Input::get('url');
 		$contenido->visualizacion = Input::get('visualizacion');
 		$contenido->tipo = Input::get('tipo');
@@ -229,6 +301,8 @@ public function avanza(){
 		$contenido->linkedin = Input::get('linkedin');
 		$contenido->instagram = Input::get('instagram');
 		$contenido->youtube = Input::get('youtube');
+		$contenido->ciudad_id = Input::get('ciudad');
+		$contenido->barrio_id = Input::get('municipio');
 		$contenido->save();
 
 		return Redirect('gestion/avanza')->with('status', 'ok_create');
@@ -244,6 +318,46 @@ public function avanza(){
 		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
 		$url_imagen = $file->getClientOriginalName();
 		$subir=$file->move($destinoPath,$file->getClientOriginalName());
+		}
+		if(Input::file('file_1') == null){
+        $imagel_1 = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id','=',$id)->get();
+     	}else{   
+		$file_1 = Input::file('file_1');
+		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
+		$url_imagen_1 = $file_1->getClientOriginalName();
+		$subir=$file_1->move($destinoPath,$file_1->getClientOriginalName());
+		}
+		if(Input::file('file_2') == null){
+        $imagel_2 = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id','=',$id)->get();
+     	}else{   
+		$file_2 = Input::file('file_2');
+		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
+		$url_imagen_2 = $file_2->getClientOriginalName();
+		$subir=$file_2->move($destinoPath,$file_2->getClientOriginalName());
+		}
+		if(Input::file('file_3') == null){
+        $imagel_3 = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id','=',$id)->get();
+     	}else{   
+		$file_3 = Input::file('file_3');
+		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
+		$url_imagen_3 = $file_3->getClientOriginalName();
+		$subir=$file_3->move($destinoPath,$file_3->getClientOriginalName());
+		}
+		if(Input::file('file_4') == null){
+        $imagel_4 = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id','=',$id)->get();
+     	}else{   
+		$file_4 = Input::file('file_4');
+		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
+		$url_imagen_4 = $file_4->getClientOriginalName();
+		$subir=$file_4->move($destinoPath,$file_4->getClientOriginalName());
+		}
+		if(Input::file('file_5') == null){
+        $imagel_5 = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id','=',$id)->get();
+     	}else{   
+		$file_5 = Input::file('file_5');
+		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
+		$url_imagen_5 = $file_5->getClientOriginalName();
+		$subir=$file_5->move($destinoPath,$file_5->getClientOriginalName());
 		}
 		 if(!$this->tenantName){
 		$contenido = Avanzaempresa::find($id);
@@ -261,7 +375,41 @@ public function avanza(){
 	    }
 	    }else{
 	    $contenido->imagen = '/fichaimg/clientes/'.$number.'/'.$url_imagen;	
-
+	    }
+	    if(Input::file('file_1') == null){
+		foreach($imagel_1 as $imagel){
+		$contenido->imagen_1 = $imagel->imagen_1;
+	    }
+	    }else{
+	    $contenido->imagen_1 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_1;
+	    }
+	    if(Input::file('file_2') == null){
+		foreach($imagel_2 as $imagel){
+		$contenido->imagen_2 = $imagel->imagen_2;
+	    }
+	    }else{
+	    $contenido->imagen_2 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_2;
+	    }
+	    if(Input::file('file_3') == null){
+		foreach($imagel_3 as $imagel){
+		$contenido->imagen_3 = $imagel->imagen_3;
+	    }
+	    }else{
+	    $contenido->imagen_3 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_3;
+	    }
+	    if(Input::file('file_4') == null){
+		foreach($imagel_4 as $imagel){
+		$contenido->imagen_4 = $imagel->imagen_4;
+	    }
+	    }else{
+	    $contenido->imagen_4 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_4;
+	    }
+	    if(Input::file('file_5') == null){
+		foreach($imagel_5 as $imagel){
+		$contenido->imagen_5 = $imagel->imagen_5;
+	    }
+	    }else{
+	    $contenido->imagen_5 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_5;
 	    }
 		$contenido->url = Input::get('url');
 		$contenido->visualizacion = Input::get('visualizacion');
@@ -276,6 +424,8 @@ public function avanza(){
 		$contenido->instagram = Input::get('instagram');
 		$contenido->youtube = Input::get('youtube');
 		$contenido->usuario_id = Input::get('usuario');
+		$contenido->ciduad_id = Input::get('ciudad');
+		$contenido->barrio_id = Input::get('municipio');
 		$contenido->save();
 
 		return Redirect('gestion/avanza')->with('status', 'ok_create');
@@ -544,5 +694,53 @@ if(!$this->tenantName){
 	dd($fichas);
 }
 	
+
+     	public function editarpromo($id){
+        $number = Auth::user()->id;
+     	if(Input::file('file') == null){
+        $imagel = \DigitalsiteSaaS\Avanza\Tenant\Avanzaempresa::where('id','=',$id)->get();
+     	}else{   
+		$file = Input::file('file');
+		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
+		$url_imagen = $file->getClientOriginalName();
+		$subir=$file->move($destinoPath,$file->getClientOriginalName());
+		}
+		
+		
+		if(!$this->tenantName){
+		$contenido = Promocion::find($id);
+     	}else{
+     	$contenido =  \DigitalsiteSaaS\Avanza\Tenant\Promocion::find($id);	
+     	}
+		$contenido->promocion = Input::get('promocion');
+		$contenido->sluge = Str::slug($contenido->promocion);
+		$contenido->desde = Input::get('desde');
+		$contenido->hasta = Input::get('hasta');
+		$contenido->cupones = Input::get('cupones');
+		if(Input::file('file') == null){
+		foreach($imagel as $imagel){
+		$contenido->image = $imagel->imagen;
+	    }
+	    }else{
+	    $contenido->image = '/fichaimg/clientes/'.$number.'/'.$url_imagen;	
+	    }	    
+		$contenido->save();
+
+		return Redirect('gestion/avanza/promociones')->with('status', 'ok_create');
+     	}
+
+
+
+	    public function editarpromocion($id) {
+		if(!$this->tenantName){
+    	 $promociones = Promocion::find($id);
+		 }else{
+	     $promociones = \DigitalsiteSaaS\Avanza\Tenant\Promocion::find($id);
+	      }
+
+	     return view('avanza::fichaje/editar-promocion')->with('promociones', $promociones);
+       
+}
+
 
 }

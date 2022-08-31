@@ -11,15 +11,20 @@ Route::group(['middleware' => ['auths','administrador']], function (){
 Route::group(['middleware' => ['auths','fichador']], function (){
 Route::get('gestion/avanza/mensaje', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@mensaje');
 Route::get('gestion/avanza/fichas', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanzaficha');
+Route::get('gestion/avanza/promociones', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@promociones');
 Route::get('gestion/avanza/mensaje-ficha/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@mensajeficha');
 Route::get('gestion/avanza/crear', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanzacrear');
+Route::get('gestion/avanza/crear-promocion', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@crearpromocion');
 Route::post('gestion/avanza/crearficha', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@crearficha');
+Route::post('gestion/avanza/crearpromociones', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@crearpromociones');
 Route::get('gestion/avanza/crear-empresa', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanzacrearempresa');
 Route::post('gestion/avanza/crearempresa', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@crearempresa');
 Route::get('avanza/editar-empresa/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarempresa');
 Route::post('avanza/editarempresa/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarempresaweb');
 Route::get('gestion/avanza', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@avanza');
 Route::get('gestion/avanza/editar-ficha/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarficha');
+Route::get('gestion/avanza/editar-promo/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarpromocion');
+Route::post('gestion/avanza/editarpromo/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarpromo');
 Route::get('gestion/avanza/editar-ficha-img/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@editarfichaimg');
 Route::post('gestion/avanza/actualizarficha/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@actualizarficha');
 Route::post('gestion/avanza/actualizarfichaimg/{id}', 'DigitalsiteSaaS\Avanza\Http\AvanzaController@actualizarfichaimg');
@@ -42,19 +47,12 @@ Route::get('filtro/ajax-subcat', 'DigitalsiteSaaS\Pagina\Http\WebController@memo
 Route::post('gestion/filtro/home', 'DigitalsiteSaaS\Pagina\Http\WebController@filtrohome');
 Route::post('gestion/avanza/usuario', 'DigitalsiteSaaS\Pagina\Http\WebController@crearusuario');
 Route::post('mensajes/mensajeficha', 'DigitalsiteSaaS\Pagina\Http\WebController@mensajeficha');
+Route::get('banner-clic/{id}', 'DigitalsiteSaaS\Pagina\Http\WebController@contador');
 
-Route::get('banner-clic/{id}', function($id){
-
-$url = DB::table('contents')->where('id',$id)->pluck('url');
-DB::table('contents')->where('id',$id)->limit(1)->update(['content'=> DB::raw('content + 1')]);
- foreach ($url as $url){
-
-return redirect($url);
-}
-	});
 
 
 Route::get('empresa/{id}', 'DigitalsiteSaaS\Pagina\Http\WebController@detallempresa');
+Route::get('empresaweb/{id}', 'DigitalsiteSaaS\Pagina\Http\WebController@detallenegocio');
 Route::get('empresas/{id}', 'DigitalsiteSaaS\Pagina\Http\WebController@infoempresa');
   
 Route::get('empresa/{id}/datos', function($page){

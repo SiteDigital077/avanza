@@ -260,18 +260,43 @@ public function avanza(){
 		$file_4 = Input::file('file_4');
 		$file_5 = Input::file('file_5');
 		$destinoPath = public_path().'/fichaimg/clientes/'.$number;
-		$url_imagen = $file->getClientOriginalName();
-		$url_imagen_1 = $file_1->getClientOriginalName();
-		$url_imagen_2 = $file_2->getClientOriginalName();
-		$url_imagen_3 = $file_3->getClientOriginalName();
-		$url_imagen_4 = $file_4->getClientOriginalName();
-		$url_imagen_5 = $file_5->getClientOriginalName();
-		$subir=$file->move($destinoPath,$file->getClientOriginalName());
-		$subir=$file_1->move($destinoPath,$file_1->getClientOriginalName());
-		$subir=$file_2->move($destinoPath,$file_2->getClientOriginalName());
-		$subir=$file_3->move($destinoPath,$file_3->getClientOriginalName());
-		$subir=$file_4->move($destinoPath,$file_4->getClientOriginalName());
-		$subir=$file_5->move($destinoPath,$file_5->getClientOriginalName());
+
+		if($file == ''){
+		}
+		else{
+	    $url_imagen = $file->getClientOriginalName();
+	    $subir=$file->move($destinoPath,$file->getClientOriginalName());
+		}
+		if($file_1 == ''){
+		}
+		else{
+	    $url_imagen_1 = $file_1->getClientOriginalName();
+	    $subir=$file_1->move($destinoPath,$file_1->getClientOriginalName());
+		}
+		if($file_2 == ''){
+		}
+		else{
+	    $url_imagen_2 = $file_2->getClientOriginalName();
+	    $subir=$file_2->move($destinoPath,$file_2->getClientOriginalName());
+		}
+		if($file_3 == ''){
+		}
+		else{
+	    $url_imagen_3 = $file_3->getClientOriginalName();
+	    $subir=$file_3->move($destinoPath,$file_3->getClientOriginalName());
+		}
+		if($file_4 == ''){
+		}
+		else{
+	    $url_imagen_4 = $file_4->getClientOriginalName();
+	    $subir=$file_4->move($destinoPath,$file_4->getClientOriginalName());
+		}
+		if($file_5 == ''){
+		}
+		else{
+	    $url_imagen_5 = $file_5->getClientOriginalName();
+	    $subir=$file_5->move($destinoPath,$file_5->getClientOriginalName());
+		}	
 	    if(!$this->tenantName){
 		$contenido = new Avanzaempresa;
      	}else{
@@ -282,12 +307,36 @@ public function avanza(){
 		$contenido->titulo = Input::get('titulo');
 		$contenido->descripcion = Input::get('descripcion');
 		$contenido->contenido = Input::get('contenido');
-		$contenido->imagen = '/fichaimg/clientes/'.$number.'/'.$url_imagen;
-		$contenido->imagen_1 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_1;
-		$contenido->imagen_2 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_2;
-		$contenido->imagen_3 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_3;
-		$contenido->imagen_4 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_4;
-		$contenido->imagen_5 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_5;
+		if($file == ''){
+		}
+		else{
+	    $contenido->imagen = '/fichaimg/clientes/'.$number.'/'.$url_imagen;
+		}
+		if($file_1 == ''){
+		}
+		else{
+	    $contenido->imagen_1 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_1;
+		}
+		if($file_2 == ''){
+		}
+		else{
+	    $contenido->imagen_2 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_2;
+		}
+		if($file_3 == ''){
+		}
+		else{
+	    $contenido->imagen_3 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_3;
+		}
+		if($file_4 == ''){
+		}
+		else{
+	    $contenido->imagen_4 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_4;
+		}
+		if($file_5 == ''){
+		}
+		else{
+	    $contenido->imagen_5 = '/fichaimg/clientes/'.$number.'/'.$url_imagen_5;
+		}
 		$contenido->url = Input::get('url');
 		$contenido->visualizacion = Input::get('visualizacion');
 		$contenido->tipo = Input::get('tipo');

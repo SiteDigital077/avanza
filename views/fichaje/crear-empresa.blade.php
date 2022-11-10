@@ -134,7 +134,7 @@
           </div>
           <div class="form-group">
             <label>Nombre Empresa</label>
-            {{Form::text('empresa', '', array('class' => 'form-control form-control-lg','maxlength' => '50','placeholder'=>'Ingrese nombre de la empresa','required' => 'required'))}}
+            {{Form::text('empresa', '', array('class' => 'form-control form-control-lg','maxlength' => '300','placeholder'=>'Ingrese nombre de la empresa','required' => 'required'))}}
           </div>
           <div class="form-group">
             <label>Titulo</label>

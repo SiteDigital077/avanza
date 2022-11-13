@@ -152,8 +152,8 @@
 
           <div class="form-group">
           <div class="custom-file">
-              <input type="file" name="file" class="custom-file-input" id="customFile"/>
-              <label class="custom-file-label" for="customFile">Seleccionar Imagen</label>
+              <input type="file" name="file" class="custom-file-input" value="{{$contenido->image}}" id="customFile"/>
+              <label class="custom-file-label" for="customFile">{{$contenido->image}}</label>
             </div>
           </div>
 
